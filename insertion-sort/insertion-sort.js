@@ -1,4 +1,4 @@
-const arr = [5, 2, 4, 6, 1, 3]
+const arr = [5, 19, 20, 2, 15, 17, 4, 6, 14, 7, 21, 1, 16, 9, 12, 13, 3, 18, 10, 8, 11]
 let result = []
 
 if (arr[0] < arr[1]) {
@@ -25,8 +25,7 @@ while (i < arr.length) {
     i++
 }
 
-console.log("Arr")
-arr.forEach(x => console.log(x))
-
-console.log("\nResult")
-result.forEach(x => console.log(x))
+// console.log("Arr")
+// arr.forEach(x => console.log(x))
+// console.log("\nResult")
+// result.forEach(x => console.log(x))

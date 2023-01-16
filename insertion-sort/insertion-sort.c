@@ -53,7 +53,7 @@ int main()
         shift_elements_to_right_backwards_till_position(position, LEN, res);
         res[position] = arr[i];
     }
-    print_arrays(arr, res);
+    /* print_arrays(arr, res); */
     free(res);
     return 0;
 }
