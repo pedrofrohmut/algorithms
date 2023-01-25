@@ -33,10 +33,11 @@ defmodule MergeSort do
     end
 
     def time_it() do
-        fn -> main() end
+        time = fn -> main() end
         |> :timer.tc()
         |> elem(0)
         |> Kernel./(1_000)
+        "Total: #{time} in milliseconds"
     end
 
     def main() do
