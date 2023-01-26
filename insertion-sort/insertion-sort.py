@@ -1,27 +1,53 @@
 #! /usr/bin/env python
 
-arr = [5, 19, 20, 2, 15, 17, 4, 6, 14, 7, 21, 1, 16, 9, 12, 13, 3, 18, 10, 8, 11]
-res = []
+from math import floor
+from random import random
+import numpy as np
+from time import time
+from array import array
 
-if arr[0] < arr[1]:
-    res.append(arr[0])
-    res.append(arr[1])
-else:
-    res.append(arr[1])
-    res.append(arr[0])
+def get_index(i):
+    return floor(random() * i)
 
-for i in range(2, len(arr)):
-    j = 0
-    while j < len(res) and res[j] < arr[i]:
-        j += 1
-    if j >= i:
-        res.append(arr[i])
+
+def generate_array(size):
+    arr = array("I", [])
+    for i in range(1, size + 1):
+        index = get_index(i)
+        arr.insert(index, i)
+    return arr
+
+
+def insertion_sort(arr):
+    res = array("I", [])
+    res.append(arr[0])
+    for i in range(1, len(arr)):
+        res_len = len(res) # This variable exists for performance
+        elem = arr[i]      # This variable exists for performance
+        j = 0
+        while j < res_len and res[j] < elem:
+            j += 1
+        res.insert(j, elem)
+    return res
+
+
+def main():
+    size = 30_000
+    arr = generate_array(size) # Source Array (Scrambled)
+
+    start = time()
+    res = insertion_sort(arr) # Result Array
+    end = time()
+
+    expected = array("I", [])
+    for i in range(1, size):
+        expected.append(i)
+
+    if (np.array_equal(res, expected)):
+        print("Result arrays is NOT as expected")
     else:
-        res.insert(j, arr[i])
+        print("Result arrays is as expected")
+        total = floor((end - start) * 1000)
+        print(f"Sorted in {total} milliseconds")
 
-# print("\nArr -------------------------")
-# for v, i in enumerate(arr):
-#     print(f"v = {v}, i = {i}")
-# print("\nRes -------------------------")
-# for v, i in enumerate(res):
-#     print(f"v = {v}, i = {i}")
+main()

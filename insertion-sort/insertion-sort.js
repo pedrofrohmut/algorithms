@@ -34,7 +34,7 @@ const main = () => {
     const end = new Date().getTime()
 
     const expected = []
-    for (let i = 1; i <= arr.length; i++) { expected.push(i) }
+    for (let i = 1; i <= arr.length; i++) expected.push(i)
 
     if (expected.toString() != res.toString()) {
         console.error("They are not equal")
