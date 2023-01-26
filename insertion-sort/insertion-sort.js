@@ -1,31 +1,47 @@
-const arr = [5, 30, 34, 19, 20, 31, 33, 2, 15, 32, 25, 17, 38, 4, 6, 23, 29, 40, 14, 7, 36, 21, 1, 16, 39, 26, 35, 9, 12, 13, 24, 3, 37, 18, 27, 10, 8, 28, 11, 22]
-let result = []
+const getIndex = i => Math.floor(Math.random() * i)
 
-if (arr[0] < arr[1]) {
-    result[0] = arr[0]
-    result[1] = arr[1]
-} else {
-    result[0] = arr[1]
-    result[1] = arr[0]
+const generateArray = (size) => {
+    let arr = []
+    for (let i = 1; i <= size; i++) {
+        const index = getIndex(i)
+        arr.splice(index, 0, i)
+    }
+    return arr
 }
 
-let i = 2
-while (i < arr.length) {
-    let j = 0
-    while(j < result.length && result[j] < arr[i]) {
-        j++
+const insertionSort = (arr) => {
+    let res = []
+    res[0] = arr[0]
+    for (let i = 1; i < arr.length; i++) {
+        let j = 0
+        while (j < i && res[j] < arr[i]) j++
+        if (j == res.length) {
+            res.push(arr[i])
+        } else {
+            res.splice(j, 0, arr[i])
+        }
     }
-    if (j == result.length) {
-        result.push(arr[i])
+    return res
+}
+
+const main = () => {
+    const arr = generateArray(30_000)
+
+    const start = new Date().getTime()
+
+    const res = insertionSort(arr)
+
+    const end = new Date().getTime()
+
+    const expected = []
+    for (let i = 1; i <= arr.length; i++) { expected.push(i) }
+
+    if (expected.toString() != res.toString()) {
+        console.error("They are not equal")
     } else {
-        const leftSlice = result.slice(0, j)
-        const rightSlice = result.slice(j)
-        result = [ ...leftSlice, arr[i], ...rightSlice ]
+        console.log("Result array is as expected")
+        console.log(`Sorted in ${end - start} milliseconds`)
     }
-    i++
 }
 
-// console.log("Arr")
-// arr.forEach(x => console.log(x))
-// console.log("\nResult")
-// result.forEach(x => console.log(x))
+main()

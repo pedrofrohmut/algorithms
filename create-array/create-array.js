@@ -1,4 +1,7 @@
-const SIZE = 100_000
+const fs = require("fs")
+
+const SIZE = 10_000
+
 const arr = populate_array(SIZE)
 writeToFile(arr)
 
@@ -19,7 +22,6 @@ function populate_array(size)
 
 function writeToFile(arr)
 {
-    const fs = require("fs")
     const writeStream = fs.createWriteStream("arr.txt")
 
     arr.forEach(x => writeStream.write(x + "\n"))
