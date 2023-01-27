@@ -1,59 +1,75 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+#include <time.h>
 
-const int LEN = 14;
+int get_index(int i) { return floor(rand() % i); }
 
-void print_array(int *arr)
+int * generate_array(int size)
 {
-    for (int i = 0; i < LEN; i++) {
-        printf("[%d]: %d\n", i, arr[i]);
+    int * generated = malloc(sizeof(int) * size);
+    for (int i = 1; i <= size; i++) {
+        int index = get_index(i);
+        for (int j = size - 1; j >= index; j--) {
+            generated[j] = generated[j - 1];
+        }
+        generated[index] = i;
     }
+    return generated;
 }
 
-void print_arrays(int *arr, int *res)
+int * insertion_sort(int * arr, int size)
 {
-    printf("\nArr --------------------------\n");
-    print_array(arr);
-    printf("\nRes --------------------------\n");
-    print_array(res);
-}
-
-void set_first_two_elems(int *arr, int *res)
-{
-    if (arr[0] < arr[1]) {
-        res[0] = arr[0];
-        res[1] = arr[1];
-    } else {
-        res[0] = arr[1];
-        res[1] = arr[0];
+    int * res = malloc(sizeof(int) * size);
+    res[0] = arr[0];
+    for (int i = 1; i < size; i++) {
+        int j = 0;
+        while (j < i && res[j] < arr[i]) j++;
+        for (int k = size - 1; k >= j; k--) {
+            res[k] = res[k - 1];
+        }
+        res[j] = arr[i];
     }
+    return res;
 }
 
-int find_position_for_subject(int limit, int *arr, int *res)
+int * get_expected_array(int size)
 {
-    int position = 0;
-    while (position < limit && res[position] < arr[limit]) position++;
-    return position;
+    int * expected = malloc(sizeof(int) * size);
+    for (int i = 1; i <= size; i++) expected[i - 1] = i;
+    return expected;
 }
 
-void shift_elements_to_right_backwards_till_position(int position, int length, int *result)
+int compare_arrays(int * res, int * expected, int size)
 {
-    for (int k = length - 1; k >= position; k--) {
-        result[k] = result[k - 1];
+    for (int i = 0; i < size; i++) {
+        if (res[i] != expected[i]) return 0;
     }
+    return 1;
 }
 
 int main()
 {
-    int arr[] = {5, 2, 4, 9, 12, 6, 8, 10, 11, 1, 3, 13, 7, 14};
-    int *res = malloc(sizeof(arr));
-    set_first_two_elems(arr, res);
-    for (int i = 2; i < LEN; i++) {
-        int position = find_position_for_subject(i, arr, res);
-        shift_elements_to_right_backwards_till_position(position, LEN, res);
-        res[position] = arr[i];
+    const int size = 30000;
+    int * arr = generate_array(size);
+
+    clock_t start = clock();
+    int * res = insertion_sort(arr, size);
+    clock_t end = clock();
+
+    int * expected = get_expected_array(size);
+
+    int are_equal = compare_arrays(res, expected, size);
+    if (! are_equal) {
+        printf("They are NOT equal\n");
+    } else {
+        printf("Result array is as expected\n");
+        double total_in_ms = ((double) (end - start) / CLOCKS_PER_SEC)  * 1000;
+        printf("Sorted in %f milliseconds\n", total_in_ms);
     }
-    /* print_arrays(arr, res); */
+
+    free(arr);
     free(res);
+    free(expected);
     return 0;
 }

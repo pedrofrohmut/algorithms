@@ -22,10 +22,9 @@ def insertion_sort(arr):
     res = array("I", [])
     res.append(arr[0])
     for i in range(1, len(arr)):
-        res_len = len(res) # This variable exists for performance
         elem = arr[i]      # This variable exists for performance
         j = 0
-        while j < res_len and res[j] < elem:
+        while j < i and res[j] < elem:
             j += 1
         res.insert(j, elem)
     return res
