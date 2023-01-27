@@ -25,22 +25,26 @@ const insertionSort = (arr) => {
 }
 
 const main = () => {
-    const arr = generateArray(30_000)
+    const size = 30_000
 
-    const start = new Date().getTime()
+    const genStart = new Date().getTime()
+    const arr = generateArray(size)
+    const genEnd = new Date().getTime()
 
+    console.log(`1. Time to generate ${genEnd - genStart} ms`)
+
+    const sortStart = new Date().getTime()
     const res = insertionSort(arr)
-
-    const end = new Date().getTime()
+    const sortEnd = new Date().getTime()
 
     const expected = []
     for (let i = 1; i <= arr.length; i++) expected.push(i)
 
     if (expected.toString() != res.toString()) {
-        console.error("They are not equal")
+        console.error("2. They are not equal")
     } else {
-        console.log("Result array is as expected")
-        console.log(`Sorted in ${end - start} milliseconds`)
+        console.log("2. Result array is as expected")
+        console.log(`3. Sorted in ${sortEnd - sortStart} milliseconds`)
     }
 }
 
