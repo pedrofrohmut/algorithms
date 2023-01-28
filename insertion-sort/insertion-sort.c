@@ -23,12 +23,16 @@ int * insertion_sort(int * arr, int size)
     int * res = malloc(sizeof(int) * size);
     res[0] = arr[0];
     for (int i = 1; i < size; i++) {
+        // insert_position
         int j = 0;
         while (j < i && res[j] < arr[i]) j++;
-        for (int k = size - 1; k >= j; k--) {
-            res[k] = res[k - 1];
+        if (j == i) {
+            res[i] = arr[i];
+        } else {
+            // Move to +1 cells right (higher) to j (insert position)
+            for (int k = i; k >= j; k--) res[k] = res[k - 1];
+            res[j] = arr[i];
         }
-        res[j] = arr[i];
     }
     return res;
 }
@@ -48,6 +52,11 @@ int compare_arrays(int * res, int * expected, int size)
     return 1;
 }
 
+double get_time(clock_t start, clock_t end)
+{
+    return ((double) (end - start) / CLOCKS_PER_SEC) * 1000;
+}
+
 int main()
 {
     const int size = 30000;
@@ -64,12 +73,11 @@ int main()
         printf("They are NOT equal\n");
     } else {
         printf("Result array is as expected\n");
-        double total_in_ms = ((double) (end - start) / CLOCKS_PER_SEC)  * 1000;
-        printf("Sorted in %f milliseconds\n", total_in_ms);
+        printf("Sorted in %f milliseconds\n", get_time(start, end));
     }
 
-    free(arr);
     free(res);
+    free(arr);
     free(expected);
     return 0;
 }
