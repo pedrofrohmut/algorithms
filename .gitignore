@@ -1,2 +1,11 @@
 **/*.out
 **/*.exe
+
+# insertion-sort executables
+insertion-sort/insertion-sort
+insertion-sort/insertion-sort2
+
+# Rust
+**/Cargo.lock
+**/target/
+
