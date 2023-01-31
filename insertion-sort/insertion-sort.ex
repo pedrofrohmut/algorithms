@@ -6,15 +6,20 @@ defmodule InsertionSort do
         end)
     end
 
+    defp get_index([], _key, index), do: index
+
+    defp get_index(list, key, index) do
+        [head | body] = list
+        if head >= key do
+            index
+        else
+            get_index(body, key, index + 1)
+        end
+    end
+
     defp insertion_sort(arr) do
         Enum.reduce(arr, [], fn key, acc ->
-            index = Enum.reduce(acc, 0, fn x, inner_acc ->
-                if x < key do
-                    inner_acc + 1
-                else
-                    inner_acc
-                end
-            end)
+            index = get_index(acc, key, 0)
             List.insert_at(acc, index, key)
         end)
     end
@@ -30,14 +35,16 @@ defmodule InsertionSort do
         n_diff == 0
     end
 
-    def main() do
+    def main() do # 4653 ms
         size = 30_000
 
         # Generate array
         {gen_time, arr} = :timer.tc(fn -> generate_array(size) end)
+        # arr |> Kernel.inspect() |> IO.puts()
 
         # Sort array
         {sort_time, res} = :timer.tc(fn -> insertion_sort(arr) end)
+        # res |> Kernel.inspect() |> IO.puts()
 
         # Eval sorted array with expected result
         expected = Enum.to_list(1..size)
