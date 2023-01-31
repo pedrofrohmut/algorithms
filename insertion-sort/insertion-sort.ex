@@ -1,30 +1,56 @@
 defmodule InsertionSort do
-    defp func(), do: fn -> main() end
-
-    defp time_it(function) do
-        # :timer.tc returns the time in microseconds
-        function |> :timer.tc() |> elem(0)
+    defp generate_array(size) do
+        Enum.reduce(1..size, [], fn i, acc ->
+            index = Enum.random(0..i)
+            List.insert_at(acc, index, i)
+        end)
     end
 
-    defp print_list(arr), do: arr |> Kernel.inspect() |> IO.puts()
+    defp insertion_sort(arr) do
+        Enum.reduce(arr, [], fn key, acc ->
+            index = Enum.reduce(acc, 0, fn x, inner_acc ->
+                if x < key do
+                    inner_acc + 1
+                else
+                    inner_acc
+                end
+            end)
+            List.insert_at(acc, index, key)
+        end)
+    end
 
-    def time() do
-        time = time_it(func())
-        "Time: #{time} microseconds #{time / 1_000} millisencond #{time / 1_000_000} seconds"
+    defp compare_lists(subject, expected) do
+        n_diff = Enum.reduce(0..length(expected) - 1, 0, fn i, acc ->
+            if Enum.at(subject, i) == Enum.at(expected, i) do
+                acc
+            else
+                acc + 1
+            end
+        end)
+        n_diff == 0
     end
 
     def main() do
-        arr = [41, 5, 30, 34, 19, 20, 31, 33, 2, 15, 32, 25, 17, 38, 4, 6, 23, 29, 40, 14, 7, 36, 21, 1, 16, 39, 26, 35, 9, 12, 13, 24, 3, 37, 18, 27, 10, 8, 28, 11, 22]
+        size = 30_000
 
-        result_array = Enum.reduce(arr, [], fn elem, res ->
-            left = Enum.take_while(res, fn x -> x < elem end)
-            right = res -- left
-            left ++ [elem] ++ right
-        end)
+        # Generate array
+        {gen_time, arr} = :timer.tc(fn -> generate_array(size) end)
 
-        # print_list(result_array)
+        # Sort array
+        {sort_time, res} = :timer.tc(fn -> insertion_sort(arr) end)
 
-        result_array
+        # Eval sorted array with expected result
+        expected = Enum.to_list(1..size)
+        are_equal = compare_lists(res, expected)
+
+        # Output results
+        IO.puts "1. Time to generate list: #{gen_time / 1_000} ms"
+        if not are_equal do
+            IO.puts "2. The result list is NOT sorted as expected"
+        else
+            IO.puts "2. The result list is sorted as expected"
+            IO.puts "3. Time to sort the list #{sort_time / 1_000} ms"
+        end
     end
 end
 
