@@ -1,68 +1,106 @@
-// arr is the full array with 40 elements
-const arr = [5, 30, 34, 19, 20, 31, 33, 2, 15, 41, 32, 25, 17, 38, 4, 6, 23, 29, 40, 14, 7, 36, 21, 1, 16, 39, 26, 35, 9, 12, 13, 24, 3, 37, 18, 27, 10, 8, 28, 11, 22]
-
-const start = new Date().getTime()
-
-const { Left, Right } = getLeftAndRight(arr)
-
-const res = mergeLeftAndRight(Left, Right)
-
-const end = new Date().getTime()
-
-console.log("Start:", start)
-console.log("End:", end)
-console.log("Total:", end - start, "in milliseconds")
-
-// res.forEach((x, i) => console.log(`res[${i}]: ${x}`))
-
-function orderArray(arr) {
-    let res = []
-    res[0] = arr[0]
-    for (let i = 1; i < arr.length; i++) {
-        let j = 0
-        // iterate through res array to find insert position
-        while (j < i && res[j] < arr[i]) j++
-        // Insert elem into res array into j position
-        res.splice(j, 0, arr[i])
+const generateArray = (size) =>
+{
+    const arr = []
+    for (let i = 1; i <= size; i++) {
+        const index = Math.floor(Math.random() * i)
+        arr.splice(index, 0, i)
     }
-    return res
+    return arr
 }
 
-function getLeftAndRight(arr) {
-    const mid = Math.floor(arr.length / 2)
-
-    // Separate the A into 2 slices of same size
-    let Left = arr.slice(0, mid)
-    let Right = arr.slice(mid)
-
-    // Order both slices
-    Left = orderArray(Left)
-    Right = orderArray(Right)
-
-    return { Left, Right }
+const getLeftAndRight = (arr) =>
+{
+    const extra = arr % 2 == 0 ? 0 : 1 // extra when arr.length is odd
+    const mid = Math.floor(arr.length / 2) - 1
+    const left = arr.slice(0, mid + extra)
+    const right = arr.slice(mid + extra)
+    return { left, right }
 }
 
-function mergeLeftAndRight(Left, Right) {
-    const resultLength = Left.length + Right.length
+const sortArray = (arr) =>
+{
+    for (let i = 1; i < arr.length; i++) {
+        const key = arr[i];
+        let j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key;
+    }
+    return arr
+}
+
+const mergeLeftAndRight = (left, right) =>
+{
+    const resultLength = left.length + right.length
     let result = []
     let leftIndex = 0
     let rightIndex = 0
     for (let k = 0; k < resultLength; k++) {
-        if (rightIndex >= Right.length) {
-            result[k] = Left.slice(leftIndex)
+        if (rightIndex >= right.length) {
+            result = result.concat(left.slice(leftIndex))
             break
         }
-        if (leftIndex >= Left.length) {
-            result[k] = Right.slice(rightIndex)
+        if (leftIndex >= left.length) {
+            result = result.concat(right.slice(rightIndex))
             break
         }
-        if (Left[leftIndex] < Right[rightIndex]) {
-            result[k] = Left[leftIndex]
+        if (left[leftIndex] < right[rightIndex]) {
+            result[k] = left[leftIndex]
             leftIndex++
         } else {
-            result[k] = Right[rightIndex]
+            result[k] = right[rightIndex]
             rightIndex++
         }
     }
     return result
 }
+
+const compareArrays = (subject, expected) =>
+{
+    for (let i = 0; i < subject.length; i++) {
+        if (subject[i] != expected[i]) return false
+    }
+    return true
+}
+
+const main = () =>
+{
+    const size = 30_000
+
+    // Generate array
+    const genStart = new Date().getTime()
+    const arr = generateArray(size)
+    const genEnd = new Date().getTime()
+
+    const sortStart = new Date().getTime()
+
+    // Get Left and Right halves of the array
+    const { left, right } = getLeftAndRight(arr)
+
+    // Sort Left and Right (with insertionSort)
+    sortArray(left)
+    sortArray(right)
+
+    // Merge Left and Right
+    const merged = mergeLeftAndRight(left, right)
+
+    const sortEnd = new Date().getTime()
+
+    // Eval sorted array with an expected result
+    const expected = []
+    for (let i = 1; i <= size; i++) expected.push(i)
+    const areEqual = compareArrays(merged, expected)
+
+    // Output the results
+    console.log("1. Time to generate array: ", genEnd - genStart, "ms")
+    if (! areEqual) {
+        console.log("2. Result array is NOT sorted as expected")
+    } else {
+        console.log("2. Result array is sorted as expected")
+        console.log("3. Time to merge sort the array: ", sortEnd - sortStart, "ms")
+    }
+}
+
+main()
