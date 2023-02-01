@@ -32,7 +32,8 @@ fn compare_arrays(subject: Vec<usize>, expected: Vec<usize>) -> bool
     return true;
 }
 
-fn main() {
+fn main()
+{
     let size = 30000;
 
     // Generate array

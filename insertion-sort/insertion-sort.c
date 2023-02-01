@@ -3,7 +3,7 @@
 #include <math.h>
 #include <time.h>
 
-int get_index(int i) { return floor(rand() % i); }
+int get_index(int i) { return rand() % i; }
 
 int * generate_array(int size)
 {
