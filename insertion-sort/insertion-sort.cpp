@@ -1,44 +1,5 @@
-// int main()
-// {
-//     vector<int> arr = {5, 2, 4, 6, 1, 3};
-//     vector<int> res = {};
-//
-//     if (arr.size() < 2) return 1;
-//
-//     if (arr.at(0) < arr.at(1)) {
-//         res.push_back(arr.at(0));
-//         res.push_back(arr.at(1));
-//     } else {
-//         res.push_back(arr.at(1));
-//         res.push_back(arr.at(0));
-//     }
-//
-//     for (auto i = 2; i < arr.size(); i++) {
-//         auto j = 0;
-//         while (j < res.size() && res.at(j) < arr.at(i)) {
-//             j++;
-//         }
-//         if (j == res.size()) {
-//             res.push_back(arr.at(i));
-//         } else {
-//             res.insert(res.begin() + j, arr[i]);
-//         }
-//     }
-//
-//     cout << "\nArr" << endl;
-//     for (auto& v : arr) {  cout << v << " " << endl; }
-//     cout << "\nRes" << endl;
-//     for (auto& v : res) { cout << v << " " << endl; }
-//
-//     return 0;
-// }
-
-#include <vector>
 #include <iostream>
 #include <array>
-
-#include <stdlib.h>
-#include <time.h>
 
 using namespace std;
 
@@ -109,7 +70,7 @@ int main()
     auto res = insertion_sort(arr);
     auto sort_end = clock();
 
-    // Evaul sorted array with an expected result
+    // Eval sorted array with an expected result
     auto expected = get_expected_array();
     auto are_equal = compare_arrays(res, expected);
 
