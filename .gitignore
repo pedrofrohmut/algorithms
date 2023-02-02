@@ -5,6 +5,9 @@
 insertion-sort/insertion-sort
 insertion-sort/insertion-sort2
 
+# merge-sort executables
+merge-sort/merge-sort
+
 # Rust
 **/Cargo.lock
 **/target/

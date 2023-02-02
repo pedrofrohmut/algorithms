@@ -1,98 +1,144 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-void print_array(int *arr, int len)
-{
-    for (int i = 0; i < len; i++) printf("[%d]: %d\n", i, arr[i]);
-}
+#include <stdio.h> // printf
+#include <stdlib.h> // malloc
+#include <time.h> // clock
+#include <math.h> // floor
+#include <stdbool.h> // bool
 
 typedef struct Left_And_Right {
-    int * Left;
-    int * Right;
+    int * left;
+    int * right;
 } LeftAndRight ;
 
-LeftAndRight get_left_and_right(int * arr, int arr_size)
+double get_time_ms(clock_t start, clock_t end)
 {
-    int extra = arr_size % 2 == 0 ? 0 : 1;
-    int size = arr_size / 2;
-    int * left = malloc((size + extra) * sizeof(int));
-    int * right = malloc(size * sizeof(int));
-    for (int i = 0; i < size + extra; i++) { left[i]  = arr[i]; }
-    for (int i = 0; i < size; i++) { right[i] = arr[size + i]; }
+    double time_sec = (double) (end - start) / CLOCKS_PER_SEC;
+    return time_sec * 1000;
+}
+
+int * get_expected_array(int size)
+{
+    int * expected = malloc(sizeof(int) * size);
+    for (int i = 1; i <= size; i++) expected[i - 1] = i;
+    return expected;
+}
+
+bool compare_arrays(int * merged, int * expected, int size)
+{
+    for (int i = 0; i < size; i++) {
+        if (merged[i] != expected[i]) return false;
+    }
+    return true;
+}
+
+int * generate_array(int size)
+{
+    int * arr = malloc(sizeof(int) * size);
+    for (int i = 1; i <= size; i++) {
+        const int index = rand() % i;
+        for (int j = size - 1; j >= index; j--) {
+            arr[j] = arr[j - 1];
+        }
+        arr[index] = i;
+    }
+    return arr;
+}
+
+LeftAndRight get_left_and_right(int * arr, int left_size, int right_size)
+{
+    int * left = malloc(left_size * sizeof(int));
+    int * right = malloc(right_size * sizeof(int));
+    for (int i = 0; i < left_size; i++) { left[i]  = arr[i]; }
+    for (int i = 0; i < right_size; i++) { right[i] = arr[left_size + i]; }
     return (LeftAndRight){ left, right };
 }
 
-int * order_array(int * arr, int len)
+int * insertion_sort(int * arr, int size)
 {
-    if (len < 2)  return arr;
-    int * res = malloc(len * sizeof(int));
-    for (int i = 0; i < len; i++)  res[i] = arr[i];
-    for (int i = 1; i < len; i++) {
-        int j = 0;
-        while (j < i && res[j] < arr[i]) j++;
-        if (j == i) {
-            res[i] = arr[i];
-        } else {
-            for (int k = len - 1; k >= j; k--) res[k] = res[k - 1];
-            res[j] = arr[i];
+    for (int i = 1; i < size; i++) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
         }
+        arr[j + 1] = key;
     }
-    return res;
+    return arr;
 }
 
-int * merge_sort(int * left, int lsize, int * right, int rsize)
+int * merge_sort(int * left, int * right, int left_size, int right_size)
 {
-    int res_len = lsize + rsize;
-    int * res = malloc(res_len * sizeof(int));
-    int l = 0;
-    int r = 0;
-    for (int i = 0; i < res_len; i++) {
-        if (r >= rsize || l >= lsize) break;
+    const int full_size = left_size + right_size;
+    int * merged = malloc(full_size * sizeof(int));
+    int l = 0; // left index
+    int r = 0; // right index
+    for (int i = 0; i < full_size; i++) {
+        if (l >= left_size) {
+            for (int i = r; i < right_size; i++) {
+                merged[i + l] = right[i];
+            }
+            break;
+        }
+        if (r >= right_size) {
+            for (int i = l; i < left_size; i++) {
+                merged[i + r] = left[i];
+            }
+            break;
+        }
         if (left[l] < right[r]) {
-            res[i] = left[l];
+            merged[i] = left[l];
             l++;
         } else {
-            res[i] = right[r];
+            merged[i] = right[r];
             r++;
         }
     }
-    // Add final remaining elements if there are any
-    if (r < rsize) {
-        for (int i = r; i < rsize; i++)  res[i + l] = right[i];
-    }
-    if (l < lsize) {
-        for (int i = l; i < lsize; i++)  res[i + r] = left[i];
-    }
-    return res;
+    return merged;
 }
 
 int main()
 {
-    int arr[] = { 5, 30, 34, 19, 20, 31, 33, 2, 15, 41, 32, 25, 17, 38, 4, 6, 23, 29, 40, 14, 7, 36, 21, 1, 16, 39, 26, 35, 9, 12, 13, 24, 3, 37, 18, 27, 10, 8, 28, 11, 22 };
-    int size = sizeof(arr) / sizeof(int);
+    const int size = 30000;
+    const int extra = size % 2 == 0 ? 0 : 1;
+    const int left_size = size / 2 + extra;
+    const int right_size = size / 2;
 
-    // Get Left and Right from source array
-    LeftAndRight left_and_right = get_left_and_right(arr, size);
-    int * left = left_and_right.Left;
-    int * right = left_and_right.Right;
-    int lsize, rsize;
-    if (size % 2 == 0) {
-        lsize = rsize = size / 2;
+    // Generate array
+    const clock_t gen_start = clock();
+    int * arr = generate_array(size);
+    const clock_t gen_end = clock();
+
+    const clock_t sort_start = clock();
+
+    // Get left and right. The halves of the array
+    const LeftAndRight left_and_right = get_left_and_right(arr, left_size, right_size);
+
+    // Sort left and right (insertion sort)
+    int * left = insertion_sort(left_and_right.left, left_size);
+    int * right = insertion_sort(left_and_right.right, right_size);
+
+    // Merge left and right
+    int * merged = merge_sort(left, right, left_size, right_size);
+
+    const clock_t sort_end = clock();
+
+    // Eval sorted array with an expected result
+    int * expected = get_expected_array(size);
+    const bool are_equal = compare_arrays(merged, expected, size);
+
+    // Output the results
+    printf("1. Time to generate array: %.f ms\n", get_time_ms(gen_start, gen_end));
+    if (! are_equal) {
+        printf("2. Result array is NOT sorted as expected\n");
     } else {
-        rsize = size / 2;
-        lsize = (size / 2) + 1;
+        printf("2. Result array is sorted as expected\n");
+        printf("3. Time to merge sort the array: %.f ms\n", get_time_ms(sort_start, sort_end));
     }
 
-    // Order Left and Right
-    left = order_array(left, lsize);
-    right = order_array(right, rsize);
-
-    // MergeSort the two halves
-    int * res = merge_sort(left, lsize, right, rsize);
-
-    /* print_array(res, size); */
-
-    free(left);
-    free(right);
+    free(arr);
+    free(left_and_right.left);
+    free(left_and_right.right);
+    free(merged);
+    free(expected);
     return 0;
 }
