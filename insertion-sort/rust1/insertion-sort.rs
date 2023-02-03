@@ -19,17 +19,17 @@ fn generate_array() -> [usize; SIZE]
     return arr;
 }
 
-fn insertion_sort(arr: &[usize; SIZE]) -> [usize; SIZE]
+fn insertion_sort(arr: &mut [usize])
 {
-    let mut res: [usize; SIZE] = core::array::from_fn(|_| usize::max_value());
-    res[0] = arr[0];
-    for i in 1..SIZE {
-        let mut j = 0;
-        while j < SIZE - 1 && res[j] < arr[i] { j += 1; }
-        res[j..].rotate_right(1);
-        res[j] = arr[i];
+    for i in 1..arr.len() {
+        let key = arr[i];
+        let mut j = i;
+        while j > 0 && arr[j - 1] > key {
+            arr[j] = arr[j - 1];
+            j -= 1;
+        }
+        arr[j] = key;
     }
-    return res;
 }
 
 fn compare_arrays(arr: &[usize], expected: &[usize]) -> bool
@@ -44,17 +44,17 @@ fn main()
 {
     // Generate array
     let gen_start = Instant::now();
-    let arr = generate_array();
+    let mut arr = generate_array();
     let gen_elapsed = gen_start.elapsed().as_millis();
 
     // Sort array
     let sort_start = Instant::now();
-    let res = insertion_sort(&arr);
+    insertion_sort(&mut arr);
     let sort_elapsed = sort_start.elapsed().as_millis();
 
     // Eval sorted array with an expected result
     let expected: [usize; SIZE] = core::array::from_fn(|i| i + 1);
-    let are_equal = compare_arrays(&res, &expected);
+    let are_equal = compare_arrays(&arr, &expected);
 
     // Output results
     println!("1. Time to generate array: {} ms", gen_elapsed);
