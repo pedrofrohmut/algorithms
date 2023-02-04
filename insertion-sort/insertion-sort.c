@@ -1,40 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include <time.h>
-
-int get_index(int i) { return rand() % i; }
+#include <math.h>
 
 int * generate_array(int size)
 {
-    int * generated = malloc(sizeof(int) * size);
+    int * arr = malloc(sizeof(int) * size);
     for (int i = 1; i <= size; i++) {
-        int index = get_index(i);
+        int index = floor(rand() % i);
         for (int j = size - 1; j >= index; j--) {
-            generated[j] = generated[j - 1];
+            arr[j] = arr[j - 1];
         }
-        generated[index] = i;
+        arr[index] = i;
     }
-    return generated;
-}
-
-int * insertion_sort(int * arr, int size)
-{
-    int * res = malloc(sizeof(int) * size);
-    res[0] = arr[0];
-    for (int i = 1; i < size; i++) {
-        // insert_position
-        int j = 0;
-        while (j < i && res[j] < arr[i]) j++;
-        if (j == i) {
-            res[i] = arr[i];
-        } else {
-            // Move to +1 cells right (higher) to j (insert position)
-            for (int k = i; k >= j; k--) res[k] = res[k - 1];
-            res[j] = arr[i];
-        }
-    }
-    return res;
+    return arr;
 }
 
 int * get_expected_array(int size)
@@ -57,26 +36,47 @@ double get_time(clock_t start, clock_t end)
     return ((double) (end - start) / CLOCKS_PER_SEC) * 1000;
 }
 
+void insertion_sort(int * arr, int size)
+{
+    for (int i = 1; i < size; i++) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key;
+    }
+}
+
 int main()
 {
     const int size = 30000;
+
+    // Generate array
+    const clock_t gen_start = clock();
     int * arr = generate_array(size);
+    const clock_t gen_end = clock();
 
-    clock_t start = clock();
-    int * res = insertion_sort(arr, size);
-    clock_t end = clock();
+    printf("1. Time to generate array: %.4f ms\n", get_time(gen_start, gen_end));
 
+    // Sort array
+    const clock_t sort_start = clock();
+    insertion_sort(arr, size);
+    const clock_t sort_end = clock();
+
+    // Eval sorted array with an expected result
     int * expected = get_expected_array(size);
+    const int are_equal = compare_arrays(arr, expected, size);
 
-    int are_equal = compare_arrays(res, expected, size);
+    // Output the results
     if (! are_equal) {
-        printf("They are NOT equal\n");
+        printf("2. The result array is NOT sorted as expected\n");
     } else {
-        printf("Result array is as expected\n");
-        printf("Sorted in %f milliseconds\n", get_time(start, end));
+        printf("2. The result array is sorted as expected\n");
+        printf("3. Time to sort the array: %.4f ms\n", get_time(sort_start, sort_end));
     }
 
-    free(res);
     free(arr);
     free(expected);
     return 0;
