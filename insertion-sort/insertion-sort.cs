@@ -40,7 +40,9 @@ public class InsertionSortClass
     static int[] GetExpectedArray(int size)
     {
         var arr = new int[size];
-        for (var i = 0; i < size; i++) arr[i] = i + 1;
+        for (var i = 0; i < size; i++) {
+            arr[i] = i + 1;
+        }
         return arr;
     }
 

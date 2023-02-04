@@ -9,11 +9,11 @@ defmodule InsertionSort do
     defp get_index([], _key, index), do: index
 
     defp get_index(list, key, index) do
-        [head | body] = list
+        [head | tail] = list
         if head >= key do
             index
         else
-            get_index(body, key, index + 1)
+            get_index(tail, key, index + 1)
         end
     end
 
