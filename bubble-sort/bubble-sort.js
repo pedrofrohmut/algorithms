@@ -22,7 +22,7 @@ const bubbleSort = (arr) => {
 }
 
 const main = () => {
-    const size = 30_000
+    const size = 30000
 
     // Generate Array
     const genStart = new Date().getTime()
