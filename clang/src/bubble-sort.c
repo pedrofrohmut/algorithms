@@ -40,6 +40,7 @@ int main()
     // Eval sorted array with an expected result
     int * expected = generate_expected_array(size);
 
+    // Print arrays if needed
     /* print_array(arr, size, "Arr"); */
     /* print_array(res, size, "Res"); */
     /* print_array(expected, size, "Expected"); */
