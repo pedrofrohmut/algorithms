@@ -13,3 +13,7 @@ javascript = 683ms
 ## Merge Sort 40k
 
 javascript = 38ms
+
+## Selection Sort 40k
+
+javascript = 1630ms
