@@ -4,8 +4,8 @@ list sorted alphabetically by algorithm name
 
 ## Bubble Sort 40k
 
-    javascript = 3,039ms
-    C = 5,155ms
+- javascript = 3,039ms
+- C = 5,155ms
 
 ## Insertion Sort 40k
 
@@ -14,8 +14,9 @@ list sorted alphabetically by algorithm name
 
 ## Merge Sort 40k
 
-javascript = 38ms
+- javascript = 38ms
 
 ## Selection Sort 40k
 
-javascript = 1,630ms
+- javascript = 1,630ms
+- C = 673ms
