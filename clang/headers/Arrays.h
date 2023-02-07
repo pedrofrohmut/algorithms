@@ -4,8 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
-int * generate_shuffled_array(int size);
+typedef struct {
+    int * arr;
+    double time;
+} Result;
+
+Result generate_shuffled_array(int size);
 
 int * generate_expected_array(int size);
 

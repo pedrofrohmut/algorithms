@@ -1,6 +1,12 @@
 #include "../headers/Arrays.h"
 
-int * generate_shuffled_array(int size)
+double _get_time_ms(clock_t start, clock_t end)
+{
+    double time_sec = (double) (end - start) / CLOCKS_PER_SEC;
+    return time_sec * 1000;
+}
+
+int * _generate_shuffled_array(int size)
 {
     int * arr = malloc(sizeof(int) * size);
     for (int i = 1; i <= size; i++) {
@@ -12,6 +18,16 @@ int * generate_shuffled_array(int size)
     }
     return arr;
 }
+
+Result generate_shuffled_array(int size)
+{
+    const clock_t start = clock();
+    int * arr = _generate_shuffled_array(size);
+    const clock_t end = clock();
+    Result result = { arr, _get_time_ms(start, end) };
+    return result;
+}
+
 
 int * generate_expected_array(int size)
 {
