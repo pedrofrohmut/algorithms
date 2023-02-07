@@ -5,6 +5,13 @@
 #include "../headers/Arrays.h"
 #include "../headers/Time.h"
 
+void swap(int * a, int * b)
+{
+    const int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
 int * bubble_sort(int * arr, int size)
 {
     int * res = malloc(sizeof(int) * size);
@@ -13,9 +20,7 @@ int * bubble_sort(int * arr, int size)
     for (int i = 0; i < size; i++) {
         for (int j = size - 1; j > i; j--) {
             if (res[j] < res[j - 1]) {
-                const int temp = res[j];
-                res[j] = res[j - 1];
-                res[j - 1] = temp;
+                swap(&res[j], &res[j - 1]);
             }
         }
     }
