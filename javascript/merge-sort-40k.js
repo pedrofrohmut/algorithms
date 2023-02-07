@@ -26,7 +26,8 @@ const _merge = (left, right) =>
     return result
 }
 
-const _splitArray = (arr) => {
+const _splitArray = (arr) =>
+{
     const mid = Math.ceil(arr.length / 2)
     const left = arr.slice(0, mid)
     const right = arr.slice(mid)
@@ -49,7 +50,8 @@ const _mergeSort = (arr) =>
     return _merge(leftResult, rightResult)
 }
 
-const mergeSort = (arr) => {
+const mergeSort = (arr) =>
+{
     const start = new Date().getTime()
     const resultArray = _mergeSort(arr)
     const end = new Date().getTime()
@@ -59,7 +61,8 @@ const mergeSort = (arr) => {
     }
 }
 
-const main = () => {
+const main = () =>
+{
     const size = 40000
 
     // Generate array

@@ -21,7 +21,8 @@ const bubbleSort = (arr) => {
     return res
 }
 
-const main = () => {
+const main = () =>
+{
     const size = 30000
 
     // Generate Array
