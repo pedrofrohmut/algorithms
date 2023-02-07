@@ -45,6 +45,13 @@ const _splitArray = (arr) => {
 const _mergeSort = (arr) =>
 {
     if (arr.length == 1) return arr
+    if (arr.length == 2) {
+        if (arr[0] < arr[1]) {
+            return [arr[0], arr[1]]
+        } else {
+            return [arr[1], arr[0]]
+        }
+    }
     const [left, right] = _splitArray(arr)
     const leftResult = _mergeSort(left)
     const rightResult = _mergeSort(right)
