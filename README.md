@@ -1,5 +1,9 @@
-# algorithms
+# Sorting Algorithms
 
-## insertion sort 40k
+## Insertion Sort 40k
 
 javascript = 683ms
+
+## Merge Sort 40k
+
+javascript = 38ms

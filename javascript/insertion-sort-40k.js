@@ -1,4 +1,4 @@
-const { generateShuffledArray, generateExpectedArray, printArray } =  require("./arrays")
+const { generateShuffledArray, generateExpectedArray } =  require("./arrays")
 
 const _insertionSort = (arr) =>
 {
@@ -45,7 +45,7 @@ const main = () => {
         console.log("2. The result arrays is NOT sorted as expected")
     } else {
         console.log("2. The result arrays is sorted as expected")
-        console.log(`3. Time to insertion sort the shuffled array of size ${size}: ${sortTime} ms`)
+        console.log(`3. Time to insertion sort the shuffled array: ${sortTime} ms`)
     }
 }
 
