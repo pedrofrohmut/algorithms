@@ -5,7 +5,7 @@ list sorted alphabetically by algorithm name
 ## Bubble Sort 40k
 
 - javascript = 3,039ms
-- C = 5,155ms
+- C = 5,171ms
 
 ## Insertion Sort 40k
 

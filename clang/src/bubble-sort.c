@@ -15,7 +15,6 @@ int * _bubble_sort(int * arr, int size)
 {
     int * res = malloc(sizeof(int) * size);
     memcpy(res, arr, sizeof(int) * size);
-
     for (int i = 0; i < size; i++) {
         for (int j = size - 1; j > i; j--) {
             if (res[j] < res[j - 1]) {
@@ -23,7 +22,6 @@ int * _bubble_sort(int * arr, int size)
             }
         }
     }
-
     return res;
 }
 
@@ -50,12 +48,12 @@ int main()
     int * expected = generate_expected_array(size);
 
     // Output the results
-    printf("1. Time to generate the array of size %d: %.4f ms\n", size, genResult.time);
+    printf("1. Time to generate the array of size %d: %.0f ms\n", size, genResult.time);
     if (! is_sorted_as_expected(sortResult.arr, expected, size)) {
         printf("2. The result array is NOT sorted as expected\n");
     } else {
         printf("2. The result array is sorted as expected\n");
-        printf("3. Time to bubble sort the array: %.4f ms\n", sortResult.time);
+        printf("3. Time to bubble sort the array: %.0f ms\n", sortResult.time);
     }
 
     free(genResult.arr);

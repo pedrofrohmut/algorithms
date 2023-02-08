@@ -43,12 +43,12 @@ int main()
     int * expected = generate_expected_array(size);
 
     // Output the results
-    printf("1. Time to generate array of size %d: %.4f ms\n", size, genResult.time);
+    printf("1. Time to generate array of size %d: %.0f ms\n", size, genResult.time);
     if (! is_sorted_as_expected(sortResult.arr, expected, size)) {
         printf("2. The result array is NOT sorted as expected\n");
     } else {
         printf("2. The result array is sorted as expected\n");
-        printf("3. Time to insertion sort the array: %.4f ms\n", sortResult.time);
+        printf("3. Time to insertion sort the array: %.0f ms\n", sortResult.time);
     }
 
     free(genResult.arr);
