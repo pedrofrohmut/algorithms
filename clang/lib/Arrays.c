@@ -28,6 +28,12 @@ Result generate_shuffled_array(int size)
     return result;
 }
 
+void swap(int * a, int * b)
+{
+    const int temp = *a;
+    *a = *b;
+    *b = temp;
+}
 
 int * generate_expected_array(int size)
 {

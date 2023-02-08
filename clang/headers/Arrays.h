@@ -13,6 +13,8 @@ typedef struct {
 
 Result generate_shuffled_array(int size);
 
+void swap(int * a, int * b);
+
 int * generate_expected_array(int size);
 
 bool is_sorted_as_expected(int * sorted, int * expected, int size);
