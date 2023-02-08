@@ -15,6 +15,7 @@ list sorted alphabetically by algorithm name
 ## Merge Sort 40k
 
 - javascript = 38ms
+- C = 8ms
 
 ## Selection Sort 40k
 

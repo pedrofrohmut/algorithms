@@ -62,7 +62,7 @@ int main()
         printf("2. The result array is NOT sorted as expected\n");
     } else {
         printf("2. The result array is sorted as expected\n");
-        printf("3. Time to insertion sort the array: %.4f ms\n", sortResult.time);
+        printf("3. Time to selection sort the array: %.4f ms\n", sortResult.time);
     }
 
     free(genResult.arr);
