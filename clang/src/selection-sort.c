@@ -6,15 +6,18 @@
 
 int * _selection_sort(int * arr, int size)
 {
+    // Copy shuffled array to be mutated by sorting process
     int * src = malloc(sizeof(int) * size);
     memcpy(src, arr, sizeof(int) * size);
+    // Result array to acomodate the min value removed from src on each iteration
     int * res = malloc(sizeof(int) * size);
     for (int i = 0; i < size; i++) {
         int min_val = src[0];
         int min_pos = 0;
         int j = 0;
-        const int elem_count = size - i;
-        while (j < elem_count) {
+        // Artificially reduces src array for each iteration combined with shift left
+        const int src_size = size - i;
+        while (j < src_size) {
             if (src[j] < min_val) {
                 min_val = src[j];
                 min_pos = j;
@@ -23,10 +26,11 @@ int * _selection_sort(int * arr, int size)
         }
         res[i] = min_val;
         // Shift left elems from pos..elem_count - 1
-        for (int k = min_pos; k < elem_count; k++) {
+        for (int k = min_pos; k < src_size; k++) {
             src[k] = src[k + 1];
         }
     }
+    free(src);
     return res;
 }
 
