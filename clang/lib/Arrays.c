@@ -24,8 +24,7 @@ Result generate_shuffled_array(int size)
     const clock_t start = clock();
     int * arr = _generate_shuffled_array(size);
     const clock_t end = clock();
-    Result result = { arr, _get_time_ms(start, end) };
-    return result;
+    return (Result) { arr, _get_time_ms(start, end) };
 }
 
 void swap(int * a, int * b)

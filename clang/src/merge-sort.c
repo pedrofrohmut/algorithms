@@ -88,8 +88,7 @@ Result merge_sort(int * arr, int size)
     const clock_t start = clock();
     int * sorted = _merge_sort(arr, size);
     const clock_t end = clock();
-    Result res = { sorted, get_time_ms(start, end) };
-    return res;
+    return (Result ) { sorted, get_time_ms(start, end) };
 }
 
 int main()

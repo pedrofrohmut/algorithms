@@ -23,8 +23,7 @@ Result bubble_sort(int * arr, int size)
     const clock_t start = clock();
     int * result_array = _bubble_sort(arr, size);
     const clock_t end = clock();
-    Result result = { result_array, get_time_ms(start, end) };
-    return result;
+    return (Result) { result_array, get_time_ms(start, end) };
 }
 
 int main()
