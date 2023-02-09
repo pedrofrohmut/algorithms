@@ -21,6 +21,8 @@ list sorted alphabetically by algorithm name
 
 - C = 6ms
 - javascript = 38ms
+- cPython = 306ms
+- Pypy = 269ms
 
 ## Selection Sort 40k
 
