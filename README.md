@@ -26,6 +26,8 @@ list sorted alphabetically by algorithm name
 
 - C = 673ms
 - javascript = 1,630ms
+- cPython = 8,357ms
+- Pypy = 1,001ms
 
 languages in process: C, JavaScript, Python, Rust, Elixir, CSharp
 languages to future: Haskell, OCaml, Nim, Zig, Golang, Java, Kotlin, Clojure
