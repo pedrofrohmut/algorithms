@@ -12,6 +12,8 @@ list sorted alphabetically by algorithm name
 - C = 210ms
 - CPP = 375ms
 - javascript = 683ms
+- cPython = 92,213ms
+- Pypy = 581ms
 
 ## Merge Sort 40k
 

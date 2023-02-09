@@ -8,7 +8,9 @@ insertion-sort/insertion-sort2
 # merge-sort executables
 merge-sort/merge-sort
 
+# Python
+**/__pycache__/
+
 # Rust
 **/Cargo.lock
 **/target/
-

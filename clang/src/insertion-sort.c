@@ -32,7 +32,7 @@ int main()
 {
     const int size = 40000;
 
-    // Generate array
+    // Generate shuffled array
     Result genResult = generate_shuffled_array(size);
 
     // Sort shuffled array
@@ -42,7 +42,7 @@ int main()
     int * expected = generate_expected_array(size);
 
     // Output the results
-    printf("1. Time to generate array of size %d: %.0f ms\n", size, genResult.time);
+    printf("1. Time to generate shuffled array of size %d: %.0f ms\n", size, genResult.time);
     if (! is_sorted_as_expected(sortResult.arr, expected, size)) {
         printf("2. The result array is NOT sorted as expected\n");
     } else {
