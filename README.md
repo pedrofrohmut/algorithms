@@ -6,13 +6,15 @@ list sorted alphabetically by algorithm name
 
 - C = 2,413ms
 - javascript = 3,039ms
+- cPython = 212,344ms (almost 4 mins)
+- Pypy = 5,029ms
 
 ## Insertion Sort 40k
 
 - C = 210ms
 - CPP = 375ms
 - javascript = 683ms
-- cPython = 92,213ms
+- cPython = 92,213ms (1 and a half min)
 - Pypy = 581ms
 
 ## Merge Sort 40k
