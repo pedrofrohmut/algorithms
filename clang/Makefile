@@ -6,6 +6,9 @@ bubble: src/bubble-sort.c
 insertion: src/insertion-sort.c
 	gcc -o out/insertion-sort.out ${FLAGS} src/insertion-sort.c lib/Arrays.c lib/Time.c
 
+minmax-selection: src/minmax-selection-sort.c
+	gcc -o out/minmax-selection-sort.out ${FLAGS} src/minmax-selection-sort.c lib/Arrays.c lib/Time.c
+
 merge: src/merge-sort.c
 	gcc -o out/merge-sort.out ${FLAGS} src/merge-sort.c lib/Arrays.c lib/Time.c
 
