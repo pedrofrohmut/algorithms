@@ -39,11 +39,11 @@ int * _minmax_selection_sort(int * arr, int size)
             firstp = maxp; secondp = minp;
         }
         // Virtual remove min and max from src with shift left
-        for (int k = firstp; k < src_size; k++) { // Remove first elem
+        for (int k = firstp; k < secondp  - 1; k++) { // Remove first elem
             src[k] = src[k + 1];
         }
-        for (int k = secondp - 1; k < src_size - 1; k++) { // Remove second elem
-            src[k] = src[k + 1];
+        for (int k = secondp - 1; k < src_size - 2; k++) { // Remove second elem
+            src[k] = src[k + 2];
         }
     }
     free(src);

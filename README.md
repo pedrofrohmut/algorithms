@@ -19,7 +19,7 @@ list sorted alphabetically by algorithm name
 
 ## MinMax Selection Sort 40k (Maybe another name i just made it up)
 
-- C = 521ms
+- C = 498ms
 
 ## Merge Sort 40k
 
