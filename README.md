@@ -12,18 +12,18 @@ list sorted alphabetically by algorithm name
 ## Insertion Sort 40k
 
 - C = 318ms
-- CPP = 375ms
+- CPP = 309ms
 - javascript = 683ms
 - cPython = 92,213ms (1 and a half min)
 - Pypy = 581ms
 
 ## MinMax Selection Sort 40k (Maybe another name. I just made it up)
 
-- C = 498ms
+- C = 498ms (42% better speed than standard selection sort)
 
 ## Merge Sort 40k
 
-- C = 6ms
+- C = 6ms (25% better speed than standard merge sort)
 - javascript = 38ms
 - cPython = 306ms
 - Pypy = 269ms
