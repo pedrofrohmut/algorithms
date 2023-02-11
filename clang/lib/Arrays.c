@@ -8,6 +8,7 @@ double _get_time_ms(clock_t start, clock_t end)
 
 int * _generate_shuffled_array(int size)
 {
+    srand(time(NULL));
     int * arr = malloc(sizeof(int) * size);
     for (int i = 1; i <= size; i++) {
         const int index = rand() % i;
