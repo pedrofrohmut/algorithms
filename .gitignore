@@ -1,12 +1,14 @@
-**/*.out
-**/*.exe
-
 # insertion-sort executables
 insertion-sort/insertion-sort
 insertion-sort/insertion-sort2
 
 # merge-sort executables
 merge-sort/merge-sort
+
+# Clang
+**/*.out
+**/*.o
+
 
 # Python
 **/__pycache__/

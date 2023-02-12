@@ -22,9 +22,9 @@ std::shared_ptr<int[]> _insertion_sort(std::shared_ptr<int[]> arr, const int siz
 
 Result insertion_sort(const std::shared_ptr<int[]> arr, const int size)
 {
-    auto copy = copy_array(arr, size);
+    auto arr_copy = copy_array(arr, size);
     auto start = clock();
-    auto res = _insertion_sort(copy, size);
+    auto res = _insertion_sort(arr_copy, size);
     auto end = clock();
     auto sortTime = get_time_ms(start, end);
     return (Result) {res, sortTime};
