@@ -17,7 +17,8 @@ list sorted alphabetically by algorithm name
 - cPython = 92,213ms (1 and a half min)
 - Pypy = 581ms
 
-## MinMax Selection Sort 40k (Maybe another name. I just made it up)
+## MinMax Selection Sort 40k
+Maybe another name. I just made it up
 
 - C = 490ms (45% better speed than standard selection sort)
 
