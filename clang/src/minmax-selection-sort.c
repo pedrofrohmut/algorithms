@@ -13,36 +13,38 @@ int * _minmax_selection_sort(int * arr, int size)
     int * res = malloc(sizeof(int) * size);
     for (int i = 0; i < size; i += 2) { // step 2 because it takes 2 elems by iteration
         // Values
-        int minv = src[0];
-        int maxv = src[0];
+        int min_val = src[0];
+        int max_val = src[0];
         // Positions
-        int minp = 0;
-        int maxp = 0;
+        int min_pos = 0;
+        int max_pos = 0;
         int j = 0;
         // Virtual size
-        int src_size = size - i;
+        const int src_size = size - i;
         // Find max and min value and position
         while (j < src_size) {
-            if (src[j] < minv) { minv = src[j]; minp = j; }
-            if (src[j] > maxv) { maxv = src[j]; maxp = j; }
+            if (src[j] < min_val) { min_val = src[j]; min_pos = j; }
+            if (src[j] > max_val) { max_val = src[j]; max_pos = j; }
             j++;
         }
-        // Add mix and max to result array
-        res[i / 2] = minv;
-        res[(size - 1)  - (i / 2)] = maxv;
+        // Add min and max to result array
+        res[i / 2] = min_val;
+        res[(size - 1)  - (i / 2)] = max_val;
         // Get the position of first and second elements to be removed from left to right
-        int firstp = 0;
-        int secondp = 0;
-        if (minp < maxp) {
-            firstp = minp; secondp = maxp;
+        int first_pos = 0;
+        int second_pos = 0;
+        if (min_pos < max_pos) {
+            first_pos = min_pos; second_pos = max_pos;
         } else {
-            firstp = maxp; secondp = minp;
+            first_pos = max_pos; second_pos = min_pos;
         }
         // Virtual remove min and max from src with shift left
-        for (int k = firstp; k < secondp  - 1; k++) { // Remove first elem
+        // 1. Remove First Elem: [First : Second - 2] => src[i] = src[i + 1]
+        for (int k = first_pos; k < second_pos  - 1; k++) {
             src[k] = src[k + 1];
         }
-        for (int k = secondp - 1; k < src_size - 2; k++) { // Remove second elem
+        // 2. Remove Second Elem: [Second - 1 : SrcSize - 2] => src[i] = src[i + 2]
+        for (int k = second_pos - 1; k < src_size - 2; k++) {
             src[k] = src[k + 2];
         }
     }

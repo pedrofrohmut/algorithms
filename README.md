@@ -19,7 +19,7 @@ list sorted alphabetically by algorithm name
 
 ## MinMax Selection Sort 40k (Maybe another name. I just made it up)
 
-- C = 498ms (42% better speed than standard selection sort)
+- C = 490ms (45% better speed than standard selection sort)
 
 ## Merge Sort 40k
 
