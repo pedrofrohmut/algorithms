@@ -14,6 +14,9 @@ time: lib/Time.c
 
 # Mains ------------------------------------------------------------------------
 
+bubble: src/bubble-sort.cpp
+	g++ -o out/bubble-sort.out ${FLAGS} src/bubble-sort.cpp bin/Arrays.o bin/Time.o
+
 insertion: src/insertion-sort.cpp
 	g++ -o out/insertion-sort.out ${FLAGS} src/insertion-sort.cpp bin/Arrays.o bin/Time.o
 

@@ -6,22 +6,22 @@
 
 int * _bubble_sort(int * arr, int size)
 {
-    int * res = malloc(sizeof(int) * size);
-    memcpy(res, arr, sizeof(int) * size);
     for (int i = 0; i < size; i++) {
         for (int j = size - 1; j > i; j--) {
-            if (res[j] < res[j - 1]) {
-                swap(&res[j], &res[j - 1]);
+            if (arr[j] < arr[j - 1]) {
+                swap(&arr[j], &arr[j - 1]);
             }
         }
     }
-    return res;
+    return arr;
 }
 
 Result bubble_sort(int * arr, int size)
 {
+    int * arr_copy = malloc(sizeof(int) * size);
+    memcpy(arr_copy, arr, sizeof(int) * size);
     const clock_t start = clock();
-    int * result_array = _bubble_sort(arr, size);
+    int * result_array = _bubble_sort(arr_copy, size);
     const clock_t end = clock();
     return (Result) { result_array, get_time_ms(start, end) };
 }

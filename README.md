@@ -5,6 +5,7 @@ list sorted alphabetically by algorithm name
 ## Bubble Sort 40k
 
 - C = 2,413ms
+- CPP = 5,151ms
 - javascript = 3,039ms
 - cPython = 212,344ms (almost 4 mins)
 - Pypy = 5,029ms
