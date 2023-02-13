@@ -32,6 +32,7 @@ Maybe another name. I just made it up
 ## Selection Sort 40k
 
 - C = 710ms
+- CPP = 682ms
 - javascript = 1,630ms
 - cPython = 8,357ms
 - Pypy = 1,001ms

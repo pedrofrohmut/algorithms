@@ -1,7 +1,24 @@
 FLAGS=-std=c++20 -Ofast
 
+# Libs -------------------------------------------------------------------------
+
+libs:
+	gcc -c lib/Arrays.cpp -o bin/Arrays.o
+	gcc -c lib/Time.cpp -o bin/Time.o
+
+arrays: lib/Arrays.c
+	gcc -c lib/Arrays.cpp -o bin/Arrays.o
+
+time: lib/Time.c
+	gcc -c lib/Time.cpp -o bin/Time.o
+
+# Mains ------------------------------------------------------------------------
+
 insertion: src/insertion-sort.cpp
-	g++ -o out/insertion-sort.out ${FLAGS} src/insertion-sort.cpp lib/Arrays.cpp lib/Time.cpp
+	g++ -o out/insertion-sort.out ${FLAGS} src/insertion-sort.cpp bin/Arrays.o bin/Time.o
+
+selection: src/selection-sort.cpp
+	g++ -o out/selection-sort.out ${FLAGS} src/selection-sort.cpp bin/Arrays.o bin/Time.o
 
 clean:
 	rm -f out/*.out
