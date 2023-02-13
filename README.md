@@ -26,6 +26,7 @@ Maybe another name. I just made it up
 ## Merge Sort 40k
 
 - C = 6ms (25% better speed than standard merge sort)
+- CPP = 11ms
 - javascript = 38ms
 - cPython = 306ms
 - Pypy = 269ms

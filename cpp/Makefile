@@ -20,6 +20,9 @@ bubble: src/bubble-sort.cpp
 insertion: src/insertion-sort.cpp
 	g++ -o out/insertion-sort.out ${FLAGS} src/insertion-sort.cpp bin/Arrays.o bin/Time.o
 
+merge: src/merge-sort.cpp
+	g++ -o out/merge-sort.out ${FLAGS} src/merge-sort.cpp bin/Arrays.o bin/Time.o
+
 selection: src/selection-sort.cpp
 	g++ -o out/selection-sort.out ${FLAGS} src/selection-sort.cpp bin/Arrays.o bin/Time.o
 
