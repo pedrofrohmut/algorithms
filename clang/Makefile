@@ -12,7 +12,7 @@ arrays: lib/Arrays.c
 time: lib/Time.c
 	gcc -c lib/Time.c -o bin/Time.o
 
-# Mains ------------------------------------------------------------------------
+# Sort -------------------------------------------------------------------------
 
 bubble: src/bubble-sort.c
 	gcc -o out/bubble-sort.out ${FLAGS} src/bubble-sort.c bin/Arrays.o bin/Time.o
@@ -28,6 +28,11 @@ merge: src/merge-sort.c
 
 selection: src/selection-sort.c
 	gcc -o out/selection-sort.out ${FLAGS} src/selection-sort.c bin/Arrays.o bin/Time.o
+
+# Search -----------------------------------------------------------------------
+
+linear: src/linear-search.c
+	gcc -o out/linear-search.out ${FLAGS} src/linear-search.c bin/Arrays.o bin/Time.o
 
 clean:
 	rm -f out/*.out

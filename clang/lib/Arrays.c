@@ -1,12 +1,8 @@
 #include "../headers/Arrays.h"
 
-double _get_time_ms(clock_t start, clock_t end)
-{
-    double time_sec = (double) (end - start) / CLOCKS_PER_SEC;
-    return time_sec * 1000;
-}
+#include "../headers/Time.h"
 
-int * _generate_shuffled_array(int size)
+int * generate_shuffled_array(const int size)
 {
     srand(time(NULL));
     int * arr = malloc(sizeof(int) * size);
@@ -20,12 +16,30 @@ int * _generate_shuffled_array(int size)
     return arr;
 }
 
-Result generate_shuffled_array(int size)
+Result bench_generate_shuffled_array(const int size)
 {
     const clock_t start = clock();
-    int * arr = _generate_shuffled_array(size);
+    int * arr = generate_shuffled_array(size);
     const clock_t end = clock();
-    return (Result) { arr, _get_time_ms(start, end) };
+    return (Result) { arr, get_time_ms(start, end) };
+}
+
+int * generate_random_values_array(const int size)
+{
+    srand(time(NULL));
+    int * arr = malloc(sizeof(int) * size);
+    for (int i = 0; i < size; i++) {
+        arr[i] = rand() % INT_MAX;
+    }
+    return arr;
+}
+
+Result bench_generate_random_values_array(const int size)
+{
+    const clock_t start = clock();
+    int * arr = generate_random_values_array(size);
+    const clock_t end = clock();
+    return (Result) {arr, get_time_ms(start, end)};
 }
 
 void swap(int * a, int * b)
@@ -35,14 +49,14 @@ void swap(int * a, int * b)
     *b = temp;
 }
 
-int * generate_expected_array(int size)
+int * generate_expected_array(const int size)
 {
     int * expected = malloc(sizeof(int) * size);
     for (int i = 1; i <= size; i++) expected[i - 1] = i;
     return expected;
 }
 
-bool is_sorted_as_expected(int * sorted, int * expected, int size)
+bool is_sorted_as_expected(int * sorted, int * expected, const int size)
 {
     for (int i = 0; i < size; i++) {
         if (sorted[i] != expected[i]) return false;
@@ -50,7 +64,15 @@ bool is_sorted_as_expected(int * sorted, int * expected, int size)
     return true;
 }
 
-void print_array(int * arr, int size, char * name)
+bool are_not_founds(int * positions, const int size)
+{
+    for (int i = 0; i < size; i++) {
+        if (positions[i] < 0) return true;
+    }
+    return false;
+}
+
+void print_array(int * arr, const int size, char * name)
 {
     for (int i = 0; i < size; i++)
         printf("%s [%d] = %d\n", name, i, arr[i]);

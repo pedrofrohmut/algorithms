@@ -39,6 +39,12 @@ Maybe another name. I just made it up
 - cPython = 8,357ms
 - Pypy = 1,001ms
 
+# Searching Algorithms
+
+## Linear Search 40k
+
+- C = 605ms
+
 languages in process: C, JavaScript, Python, Rust, Elixir, CSharp
 languages to future: Haskell, OCaml, Nim, Zig, Golang, Java, Kotlin, Clojure
 etc: Julia, Kotlin, Pascal
