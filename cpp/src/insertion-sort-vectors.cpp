@@ -2,6 +2,7 @@
 #include <vector>
 
 using std::cout;
+using std::string;
 using std::vector;
 
 typedef struct {
@@ -19,7 +20,7 @@ double get_time_ms(clock_t start, clock_t end)
 vector<int> _generate_array(int size)
 {
     srand(time(NULL));
-    vector<int> arr = {};
+    vector<int> arr;
     for (auto i = 1; i <= size; i++) {
         int index = rand() % i;
         arr.insert(arr.begin() + index, i);
@@ -38,7 +39,7 @@ Result generate_array(int size)
 
 vector<int> _insertion_sort(vector<int> arr)
 {
-    vector<int> res = {};
+    vector<int> res;
     res.push_back(arr[0]);
     for (auto i = 1; i < arr.size(); i++) {
         auto j = 0;
@@ -59,7 +60,7 @@ Result insertion_sort(vector<int> arr)
 
 vector<int> get_expected_array(int size)
 {
-    vector<int> arr = {};
+    vector<int> arr;
     for (auto i = 1; i <= size; i++) {
         arr.push_back(i);
     }
@@ -72,6 +73,13 @@ bool is_sorted_as_expected(vector<int> subject, vector<int> expected)
         if (subject[i] != expected[i]) return false;
     }
     return true;
+}
+
+void print_vector(vector<int> vec, string name)
+{
+    for (size_t i = 0; i < vec.size(); i++) {
+        cout << name << "[" << i << "] = " << vec[i] << "\n";
+    }
 }
 
 int main()
