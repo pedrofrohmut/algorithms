@@ -42,6 +42,23 @@ Result bench_generate_random_values_array(const int size)
     return (Result) {arr, get_time_ms(start, end)};
 }
 
+int * get_ordered_copy(int * arr, const int size)
+{
+    int * copy = malloc(sizeof(int) * size);
+    memcpy(copy, arr, sizeof(int) * size);
+    // Insertion sort the array
+    for (int i = 1; i < size; i++) {
+        const int key = copy[i];
+        int j = i;
+        while (j > 0 && copy[j - 1] > key) {
+            copy[j] = copy[j - 1];
+            j--;
+        }
+        copy[j] = key;
+    }
+    return copy;
+}
+
 void swap(int * a, int * b)
 {
     const int temp = *a;

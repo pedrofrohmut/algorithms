@@ -45,6 +45,10 @@ Maybe another name. I just made it up
 
 - C = 605ms
 
+## Binary Search 40k
+
+- C = 4ms
+
 languages in process: C, JavaScript, Python, Rust, Elixir, CSharp
 languages to future: Haskell, OCaml, Nim, Zig, Golang, Java, Kotlin, Clojure
 etc: Julia, Kotlin, Pascal

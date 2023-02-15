@@ -6,6 +6,7 @@
 #include <stdbool.h> // bool
 #include <time.h> // clock_t
 #include <limits.h> // INT_MAX
+#include <string.h> // memcpy
 
 typedef struct {
     int * arr;
@@ -19,6 +20,8 @@ Result bench_generate_shuffled_array(const int size);
 int * generate_random_values_array(const int size);
 
 Result bench_generate_random_values_array(const int size);
+
+int * get_ordered_copy(int * arr, const int size);
 
 void swap(int * a, int * b);
 

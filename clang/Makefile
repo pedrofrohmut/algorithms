@@ -34,6 +34,9 @@ selection: src/selection-sort.c
 linear: src/linear-search.c
 	gcc -o out/linear-search.out ${FLAGS} src/linear-search.c bin/Arrays.o bin/Time.o
 
+binary: src/binary-search.c
+	gcc -o out/binary-search.out ${FLAGS} src/binary-search.c bin/Arrays.o bin/Time.o
+
 clean:
 	rm -f out/*.out
 	rm -f bin/*.o
