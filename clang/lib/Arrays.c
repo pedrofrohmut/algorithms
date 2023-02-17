@@ -101,3 +101,10 @@ void print_array(int * arr, const int size, char * name)
     for (int i = 0; i < size; i++)
         printf("%s [%d] = %d\n", name, i, arr[i]);
 }
+
+int * copy_array(const int arr[], const int size)
+{
+    int * res = malloc(sizeof(int) * size);
+    for (int i = 0; i < size; i++) res[i] = arr[i];
+    return res;
+}

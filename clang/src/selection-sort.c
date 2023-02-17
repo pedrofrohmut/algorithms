@@ -46,18 +46,18 @@ int main()
     int * arr = generate_random_values_array(size);
 
     // Sort shuffled array
-    Result sortResult = bench_selection_sort(arr, size);
+    Result srt_res = bench_selection_sort(arr, size);
 
     // Output the results
-    if (! is_sorted(sortResult.arr, size)) {
+    if (! is_sorted(srt_res.arr, size)) {
         printf("1. The result array is NOT sorted as expected\n");
     } else {
         printf("1. The result array is sorted as expected\n");
-        printf("2. Time to selection sort the array: %.0f ms\n", sortResult.time);
+        printf("2. Time to selection sort the array: %.0f ms\n", srt_res.time);
     }
 
     free(arr);
-    free(sortResult.arr);
+    free(srt_res.arr);
 
     return 0;
 }

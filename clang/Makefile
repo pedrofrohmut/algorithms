@@ -29,6 +29,9 @@ merge: src/merge-sort.c
 selection: src/selection-sort.c
 	gcc -o out/selection-sort.out ${FLAGS} src/selection-sort.c bin/Arrays.o bin/Time.o
 
+swap-selection: src/swap-selection-sort.c
+	gcc -o out/swap-selection-sort.out ${FLAGS} src/swap-selection-sort.c bin/Arrays.o bin/Time.o
+
 # Search -----------------------------------------------------------------------
 
 linear: src/linear-search.c

@@ -35,4 +35,6 @@ bool are_not_founds(int * positions, const int size);
 
 void print_array(int * arr, const int size, char * name);
 
+int * copy_array(const int arr[], const int size);
+
 #endif
