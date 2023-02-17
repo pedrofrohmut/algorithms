@@ -9,7 +9,7 @@ and the second is (new) sort on random numbers (rng: 0, INT_MAX).
 
 ## Bubble Sort 40k
 
-- C = 2,413ms
+- C = 2,413ms / 3,543ms
 - CPP = 5,151ms
 - javascript = 3,039ms
 - cPython = 212,344ms (almost 4 mins)
@@ -24,7 +24,6 @@ and the second is (new) sort on random numbers (rng: 0, INT_MAX).
 - Pypy = 581ms
 
 ## MinMax Selection Sort 40k
-Maybe another name. I just made it up
 
 - C = 490ms (45% better speed than standard selection sort)
 
