@@ -44,6 +44,10 @@ Maybe another name. I just made it up
 - cPython = 8,357ms
 - Pypy = 1,001ms
 
+## Swap Selection Sort 40k
+
+- C = ? / 823ms
+
 # Searching Algorithms
 
 ## Linear Search 40k

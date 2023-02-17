@@ -16,11 +16,10 @@ int * swap_selection_sort(int arr[], const int size)
     return arr;
 }
 
-Result bench_swap_selection_sort(const int arr[], const int size)
+Result bench_swap_selection_sort(int arr[], const int size)
 {
-    int * arr_cpy = copy_array(arr, size);
     const clock_t start = clock();
-    int * sorted = swap_selection_sort(arr_cpy, size);
+    int * sorted = swap_selection_sort(arr, size);
     const clock_t end = clock();
     return (Result) { sorted, get_time_ms(start, end) };
 }
@@ -44,7 +43,6 @@ int main()
     }
 
     free(arr);
-    free(srt_res.arr);
 
     return 0;
 }
