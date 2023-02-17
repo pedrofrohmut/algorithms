@@ -81,6 +81,13 @@ bool is_sorted_as_expected(int * sorted, int * expected, const int size)
     return true;
 }
 
+bool is_sorted(int * arr, const int size)
+{
+    for (int i = 0; i < size - 1; i++)
+        if (arr[i] > arr[i + 1]) return false;
+    return true;
+}
+
 bool are_not_founds(int * positions, const int size)
 {
     for (int i = 0; i < size; i++) {

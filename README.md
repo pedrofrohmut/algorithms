@@ -1,6 +1,11 @@
 # Sorting Algorithms
 
-list sorted alphabetically by algorithm name
+list sorted alphabetically by algorithm name.
+
+Results a taken by making a 10 tests sum and dividing it by 10.
+
+Some has 2 different results because left is (old) sort on shuffled array of 1..N
+and the second is (new) sort on random numbers (rng: 0, INT_MAX).
 
 ## Bubble Sort 40k
 
@@ -12,7 +17,7 @@ list sorted alphabetically by algorithm name
 
 ## Insertion Sort 40k
 
-- C = 318ms
+- C = 318ms / 344ms
 - CPP = 309ms
 - javascript = 683ms
 - cPython = 92,213ms (1 and a half min)
@@ -47,8 +52,12 @@ Maybe another name. I just made it up
 
 ## Binary Search 40k
 
-- C = 4ms
+- C = 4ms (same for while_loop and recursion)
 
-languages in process: C, JavaScript, Python, Rust, Elixir, CSharp
-languages to future: Haskell, OCaml, Nim, Zig, Golang, Java, Kotlin, Clojure
-etc: Julia, Kotlin, Pascal
+--------------------------------------------------------------------------------
+
+languages in process: C, JavaScript, Python, Rust, Elixir, CSharp.
+
+languages to future: Haskell, OCaml, Nim, Zig, Golang, Java, Kotlin, Clojure.
+
+etc: Julia, Kotlin, Pascal, Dlang.

@@ -29,6 +29,8 @@ int * generate_expected_array(const int size);
 
 bool is_sorted_as_expected(int * sorted, int * expected, const int size);
 
+bool is_sorted(int * arr, const int size);
+
 bool are_not_founds(int * positions, const int size);
 
 void print_array(int * arr, const int size, char * name);
