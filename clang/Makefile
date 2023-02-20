@@ -40,6 +40,12 @@ linear: src/linear-search.c
 binary: src/binary-search.c
 	gcc -o out/binary-search.out ${FLAGS} src/binary-search.c bin/Arrays.o bin/Time.o
 
+# Others -----------------------------------------------------------------------
+
+find-intersection: src/find-intersection.c
+	gcc -o out/find-intersection.out ${FLAGS} src/find-intersection.c bin/Arrays.o bin/Time.o
+
+
 clean:
 	rm -f out/*.out
 	rm -f bin/*.o

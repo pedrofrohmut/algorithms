@@ -19,6 +19,8 @@ Result bench_generate_shuffled_array(const int size);
 
 int * generate_random_values_array(const int size);
 
+int * generate_limited_random_values_array(const int size, const int limit);
+
 Result bench_generate_random_values_array(const int size);
 
 int * get_ordered_copy(int * arr, const int size);
@@ -34,6 +36,8 @@ bool is_sorted(int * arr, const int size);
 bool are_not_founds(int * positions, const int size);
 
 void print_array(int * arr, const int size, char * name);
+
+void print_array_inline(int * arr, const int size, char * name);
 
 int * copy_array(const int arr[], const int size);
 

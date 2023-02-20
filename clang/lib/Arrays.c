@@ -34,6 +34,16 @@ int * generate_random_values_array(const int size)
     return arr;
 }
 
+int * generate_limited_random_values_array(const int size, const int limit)
+{
+    srand(time(NULL));
+    int * arr = malloc(sizeof(int) * size);
+    for (int i = 0; i < size; i++) {
+        arr[i] = rand() % limit;
+    }
+    return arr;
+}
+
 Result bench_generate_random_values_array(const int size)
 {
     const clock_t start = clock();
@@ -98,8 +108,27 @@ bool are_not_founds(int * positions, const int size)
 
 void print_array(int * arr, const int size, char * name)
 {
-    for (int i = 0; i < size; i++)
+    if (arr == NULL) {
+        printf("%s => is NULL\n", name);
+        return;
+    }
+    printf("################################################################\n");
+    for (int i = 0; i < size; i++) {
         printf("%s [%d] = %d\n", name, i, arr[i]);
+    }
+}
+
+void print_array_inline(int * arr, const int size, char * name)
+{
+    if (arr == NULL) {
+        printf("%s => is NULL\n", name);
+        return;
+    }
+    printf("%s => [ ", name);
+    for (int i = 0; i < size; i++) {
+        printf(" %d ", arr[i]);
+    }
+    printf(" ]\n");
 }
 
 int * copy_array(const int arr[], const int size)
