@@ -1,3 +1,9 @@
+#include <stdlib.h> // rand, srand
+#include <limits.h> // INT_MAX
+#include <string.h> // memcpy
+#include <stdbool.h> // bool
+#include <stdio.h> // printf
+
 #include "../headers/Arrays.h"
 
 #include "../headers/Time.h"

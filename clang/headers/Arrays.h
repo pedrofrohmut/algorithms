@@ -1,12 +1,7 @@
 #ifndef ARRAYS_H_INCLUDED
 #define ARRAYS_H_INCLUDED
 
-#include <stdio.h> // printf
-#include <stdlib.h> // malloc
 #include <stdbool.h> // bool
-#include <time.h> // clock_t
-#include <limits.h> // INT_MAX
-#include <string.h> // memcpy
 
 typedef struct {
     int * arr;

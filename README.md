@@ -29,7 +29,7 @@ and the second is (new) sort on random numbers (rng: 0, INT_MAX).
 
 ## Merge Sort 40k
 
-- C = 6ms (25% better speed than standard merge sort)
+- C = 6ms / 15ms (25% better speed than standard merge sort)
 - CPP = 11ms
 - javascript = 38ms
 - cPython = 306ms
