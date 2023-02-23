@@ -5,7 +5,7 @@
 #include "../headers/Arrays.h"
 #include "../headers/Time.h"
 
-int * selection_sort(int * arr, int size)
+int * selection_sort(int arr[], const int size)
 {
     // Copy shuffled array to be mutated by sorting process
     int * src = malloc(sizeof(int) * size);
@@ -31,7 +31,7 @@ int * selection_sort(int * arr, int size)
     return res;
 }
 
-Result bench_selection_sort(int * arr, int size)
+Result bench_selection_sort(int arr[], const int size)
 {
     const clock_t start = clock();
     int * sorted = selection_sort(arr, size);

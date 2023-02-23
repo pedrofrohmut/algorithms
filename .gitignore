@@ -16,3 +16,5 @@ merge-sort/merge-sort
 # Rust
 **/Cargo.lock
 **/target/
+
+SKETCH.txt

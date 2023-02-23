@@ -12,7 +12,7 @@ int * swap_selection_sort(int arr[], const int size)
         for (int j = i + 1; j < size; j++) {
             if (arr[j] < arr[min_pos]) min_pos = j;
         }
-        if (i != min_pos) swap(&arr[i], &arr[min_pos]);
+        swap(&arr[i], &arr[min_pos]);
     }
     return arr;
 }

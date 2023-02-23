@@ -9,7 +9,7 @@ and the second is (new) sort on random numbers (rng: 0, INT_MAX).
 
 ## Bubble Sort 40k
 
-- C = 2,401ms (5,500ms - 227% better speed)
+- C = 2,401ms (regular: 5,500ms, gains: +129%)
 - CPP = 5,151ms
 - javascript = 3,039ms
 - cPython = 212,344ms (almost 4 mins)
@@ -25,11 +25,11 @@ and the second is (new) sort on random numbers (rng: 0, INT_MAX).
 
 ## MinMax Selection Sort 40k
 
-- C = 490ms (691ms - 45% better speed than standard selection sort)
+- C = 528ms (regular: 1011ms, gains: +91%)
 
 ## Merge Sort 40k
 
-- C = 15ms (22ms - 47% better speed than standard merge sort)
+- C = 15ms (regular: 22ms, gains: +47%)
 - CPP = 11ms
 - javascript = 38ms
 - cPython = 306ms
@@ -45,7 +45,7 @@ and the second is (new) sort on random numbers (rng: 0, INT_MAX).
 
 ## Swap Selection Sort 40k
 
-- C = ? / 823ms
+- C = 1011ms
 
 # Searching Algorithms
 
@@ -56,6 +56,18 @@ and the second is (new) sort on random numbers (rng: 0, INT_MAX).
 ## Binary Search 40k
 
 - C = 4ms (same for while_loop and recursion)
+
+--------------------------------------------------------------------------------
+
+# How gains are calculated here
+
+positive values for faster and negative for slower
+
+gains = (regular / optimized) - 1
+
+or
+
+gains = (regular - optimized) / optimized
 
 --------------------------------------------------------------------------------
 
