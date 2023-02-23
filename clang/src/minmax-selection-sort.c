@@ -66,25 +66,21 @@ int main()
     const int size = 40000;
 
     // Generate array
-    Result genResult = generate_shuffled_array(size);
+    int * arr = generate_random_values_array(size);
 
     // Sort shuffled array
-    Result sortResult = minmax_selection_sort(genResult.arr, size);
-
-    // Eval sorted array with an expected result
-    int * expected = generate_expected_array(size);
+    Result sortResult = minmax_selection_sort(arr, size);
 
     // Output the results
-    printf("1. Time to generate array of size %d: %.0f ms\n", size, genResult.time);
-    if (! is_sorted_as_expected(sortResult.arr, expected, size)) {
-        printf("2. The result array is NOT sorted as expected\n");
+    if (! is_sorted(sortResult.arr, size)) {
+        printf("1. The result array is NOT sorted as expected\n");
     } else {
-        printf("2. The result array is sorted as expected\n");
-        printf("3. Time to minmax selection sort the array: %.0f ms\n", sortResult.time);
+        printf("1. The result array is sorted as expected\n");
+        printf("2. Time to minmax selection sort the array: %.0f ms\n", sortResult.time);
     }
 
-    free(genResult.arr);
+    free(arr);
     free(sortResult.arr);
-    free(expected);
+
     return 0;
 }
