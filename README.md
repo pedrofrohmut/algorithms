@@ -9,7 +9,7 @@ and the second is (new) sort on random numbers (rng: 0, INT_MAX).
 
 ## Bubble Sort 40k
 
-- C = 2,426ms (5,500ms - 227% better speed)
+- C = 2,401ms (5,500ms - 227% better speed)
 - CPP = 5,151ms
 - javascript = 3,039ms
 - cPython = 212,344ms (almost 4 mins)
