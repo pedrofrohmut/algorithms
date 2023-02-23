@@ -7,6 +7,20 @@
 int * _merge(int * left, int * right, int left_size, int right_size)
 {
     int * merged = malloc(sizeof(int) * (left_size + right_size));
+
+    // Optimization (14%)
+    if (left_size == 1 && right_size == 1) {
+        if (left[0] < right[0]) {
+            merged[0] = left[0];
+            merged[1] = right[0];
+            return merged;
+        } else {
+            merged[0] = right[0];
+            merged[1] = left[0];
+            return merged;
+        }
+    }
+
     int left_index = 0;
     int right_index = 0;
     for (int i = 0; i < (left_size + right_size); i++) {

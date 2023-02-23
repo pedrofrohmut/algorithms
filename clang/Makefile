@@ -1,51 +1,57 @@
 FLAGS=-std=c99 -Ofast
 
+# Flags:
+# 	-std=c99 use c standard 99
+# 	-Ofast tells compiler to use optimizations
+#   -c Compile and assemble, but not link (creates object files)
+#   -o Place output into a <file>
+
 # Libs -------------------------------------------------------------------------
 
 libs:
-	gcc -c lib/Arrays.c -o bin/Arrays.o
-	gcc -c lib/Time.c -o bin/Time.o
+	gcc ${FLAGS} -c lib/Arrays.c -o bin/Arrays.o
+	gcc ${FLAGS} -c lib/Time.c -o bin/Time.o
 
 arrays: lib/Arrays.c
-	gcc -c lib/Arrays.c -o bin/Arrays.o
+	gcc ${FLAGS} -c lib/Arrays.c -o bin/Arrays.o
 
 time: lib/Time.c
-	gcc -c lib/Time.c -o bin/Time.o
+	gcc ${FLAGS} -c lib/Time.c -o bin/Time.o
 
 # Sort -------------------------------------------------------------------------
 
 bubble: src/bubble-sort.c
-	gcc -o out/bubble-sort.out ${FLAGS} src/bubble-sort.c bin/Arrays.o bin/Time.o
+	gcc ${FLAGS} src/bubble-sort.c bin/Arrays.o bin/Time.o -o out/bubble-sort.out
 
 insertion: src/insertion-sort.c
-	gcc -o out/insertion-sort.out ${FLAGS} src/insertion-sort.c bin/Arrays.o bin/Time.o
+	gcc ${FLAGS} src/insertion-sort.c bin/Arrays.o bin/Time.o -o out/insertion-sort.out
 
 minmax-selection: src/minmax-selection-sort.c
-	gcc -o out/minmax-selection-sort.out ${FLAGS} src/minmax-selection-sort.c bin/Arrays.o bin/Time.o
+	gcc ${FLAGS} src/minmax-selection-sort.c bin/Arrays.o bin/Time.o -o out/minmax-selection-sort.out
 
 merge: src/merge-sort.c
-	gcc -o out/merge-sort.out ${FLAGS} src/merge-sort.c bin/Arrays.o bin/Time.o
+	gcc ${FLAGS} src/merge-sort.c bin/Arrays.o bin/Time.o -o out/merge-sort.out
 
 selection: src/selection-sort.c
-	gcc -o out/selection-sort.out ${FLAGS} src/selection-sort.c bin/Arrays.o bin/Time.o
+	gcc ${FLAGS} src/selection-sort.c bin/Arrays.o bin/Time.o -o out/selection-sort.out
 
 swap-selection: src/swap-selection-sort.c
-	gcc -o out/swap-selection-sort.out ${FLAGS} src/swap-selection-sort.c bin/Arrays.o bin/Time.o
+	gcc ${FLAGS} src/swap-selection-sort.c bin/Arrays.o bin/Time.o -o out/swap-selection-sort.out
 
 # Search -----------------------------------------------------------------------
 
 linear: src/linear-search.c
-	gcc -o out/linear-search.out ${FLAGS} src/linear-search.c bin/Arrays.o bin/Time.o
+	gcc ${FLAGS} src/linear-search.c bin/Arrays.o bin/Time.o -o out/linear-search.out
 
 binary: src/binary-search.c
-	gcc -o out/binary-search.out ${FLAGS} src/binary-search.c bin/Arrays.o bin/Time.o
+	gcc ${FLAGS} src/binary-search.c bin/Arrays.o bin/Time.o -o out/binary-search.out
 
 # Others -----------------------------------------------------------------------
 
 find-intersection: src/find-intersection.c
-	gcc -o out/find-intersection.out ${FLAGS} src/find-intersection.c bin/Arrays.o bin/Time.o
+	gcc ${FLAGS} src/find-intersection.c bin/Arrays.o bin/Time.o -o out/find-intersection.out
 
 
-clean:
+clean: # -f for no output or prompt
 	rm -f out/*.out
 	rm -f bin/*.o

@@ -28,8 +28,7 @@ int * bubble_sort_max(int * arr, const int size)
         // -1 because you compare j with j + 1 and without -1 you overflow comparison
         for (int j = 0; j < size - i - 1; j++) {
             if (arr[j] > arr[j + 1]) {
-                // Swap by reference makes it faster for some reason
-                // Actually from 5500 to 3500 approximately 57% faster
+                // Optimization: Swap by reference makes it faster for some reason
                 swap(&arr[j], &arr[j + 1]);
             }
         }
