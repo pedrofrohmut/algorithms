@@ -38,6 +38,9 @@ selection: src/selection-sort.c
 swap-selection: src/swap-selection-sort.c
 	gcc ${FLAGS} src/swap-selection-sort.c bin/Arrays.o bin/Time.o -o out/swap-selection-sort.out
 
+quick: src/quick-sort.c
+	gcc ${FLAGS} src/quick-sort.c bin/Arrays.o bin/Time.o -o out/quick-sort.out
+
 # Search -----------------------------------------------------------------------
 
 linear: src/linear-search.c

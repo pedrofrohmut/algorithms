@@ -73,6 +73,6 @@ gains = (regular - optimized) / optimized
 
 languages in process: C, JavaScript, Python, Rust, Elixir, CSharp.
 
-languages to future: Haskell, OCaml, Nim, Zig, Golang, Java, Kotlin, Clojure.
+languages to future: Haskell, OCaml, Nim, Zig, Golang, Java, Kotlin, Clojure, Scala.
 
-etc: Julia, Kotlin, Pascal, Dlang.
+etc: Julia, Kotlin, Pascal, Dlang, Nim, Crystal.
