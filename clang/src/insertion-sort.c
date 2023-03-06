@@ -5,11 +5,6 @@
 #include "../headers/Arrays.h"
 #include "../headers/Time.h"
 
-typedef struct {
-    double time;
-    bool is_sorted;
-} Benchmark_Result;
-
 void insertion_sort(int * arr, const int size)
 {
     for (int i = 1; i < size; i++) {
@@ -45,7 +40,6 @@ int main()
 
     for (int i = 0; i < bench_amt; i++) {
         Benchmark_Result res = bench_insertion_sort(size);
-
         if (! res.is_sorted) {
             printf("ERROR: The array is NOT sorted as expected\n");
             return 1;

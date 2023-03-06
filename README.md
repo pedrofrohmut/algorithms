@@ -43,6 +43,10 @@ and the second is (new) sort on random numbers (rng: 0, INT_MAX).
 - cPython = 8,357ms
 - Pypy = 1,001ms
 
+## Swap Quick Sort
+
+- C = 0ms (Too fast to measure?)
+
 ## Swap Selection Sort 40k
 
 - C = 1011ms

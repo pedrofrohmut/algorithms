@@ -35,11 +35,11 @@ merge: src/merge-sort.c
 selection: src/selection-sort.c
 	gcc ${FLAGS} src/selection-sort.c bin/Arrays.o bin/Time.o -o out/selection-sort.out
 
+swap-quick: src/swap-quick-sort.c
+	gcc ${FLAGS} src/swap-quick-sort.c bin/Arrays.o bin/Time.o -o out/swap-quick-sort.out
+
 swap-selection: src/swap-selection-sort.c
 	gcc ${FLAGS} src/swap-selection-sort.c bin/Arrays.o bin/Time.o -o out/swap-selection-sort.out
-
-quick: src/quick-sort.c
-	gcc ${FLAGS} src/quick-sort.c bin/Arrays.o bin/Time.o -o out/quick-sort.out
 
 # Search -----------------------------------------------------------------------
 
