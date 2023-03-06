@@ -1,54 +1,61 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <stdbool.h>
 
 #include "../headers/Arrays.h"
 #include "../headers/Time.h"
 
-int * insertion_sort(int * arr, int size)
+typedef struct {
+    double time;
+    bool is_sorted;
+} Benchmark_Result;
+
+void insertion_sort(int * arr, const int size)
 {
-    int * sorted = malloc(sizeof(int) * size);
-    memcpy(sorted, arr, size * sizeof(int));
     for (int i = 1; i < size; i++) {
-        int key = sorted[i];
-        int j = i - 1;
-        while (j >= 0 && sorted[j] > key) {
-            sorted[j + 1] = sorted[j];
+        int key = arr[i];
+        int j = i;
+        while (j > 0 && arr[j - 1] > key) {
+            arr[j] = arr[j - 1];
             j--;
         }
-        sorted[j + 1] = key;
+        arr[j] = key;
     }
-    return sorted;
 }
 
-Result bench_insertion_sort(int * arr, int size)
+Benchmark_Result bench_insertion_sort(const int size)
 {
+    int * rnd_vals = generate_random_values_array(size);
+
     const clock_t start = clock();
-    int * sorted = insertion_sort(arr, size);
+    insertion_sort(rnd_vals, size);
     const clock_t end = clock();
-    return (Result) { sorted, get_time_ms(start, end) };
+
+    double time = get_time_ms(start, end);
+    bool sort_worked = is_sorted(rnd_vals, size);
+    free(rnd_vals);
+    return (Benchmark_Result) { time, sort_worked };
 }
 
 int main()
 {
+    const int bench_amt = 10;
     const int size = 40000;
+    double avg_time = 0;
 
-    // Generate shuffled array
-    int * rnd_arr = generate_random_values_array(size);
+    for (int i = 0; i < bench_amt; i++) {
+        Benchmark_Result res = bench_insertion_sort(size);
 
-    // Sort shuffled array
-    Result sort_res = bench_insertion_sort(rnd_arr, size);
-
-    // Output the results
-    if (! is_sorted(sort_res.arr, size)) {
-        printf("1. The result array is NOT sorted as expected\n");
-    } else {
-        printf("1. The result array is sorted as expected\n");
-        printf("2. Time to insertion sort the array: %.0f ms\n", sort_res.time);
+        if (! res.is_sorted) {
+            printf("ERROR: The array is NOT sorted as expected\n");
+            return 1;
+        }
+        printf("%d. Array is sorted in %.0f ms\n", (i + 1), res.time);
+        avg_time += res.time;
     }
+    avg_time /= bench_amt;
 
-    free(rnd_arr);
-    free(sort_res.arr);
-
+    printf("BENCHMARK: The avarage time to insertion sort the %d arrays is %0.f ms\n",
+            bench_amt, avg_time);
     return 0;
 }

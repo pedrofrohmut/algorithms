@@ -17,7 +17,7 @@ and the second is (new) sort on random numbers (rng: 0, INT_MAX).
 
 ## Insertion Sort 40k
 
-- C = 373ms
+- C = 330ms
 - CPP = 309ms
 - javascript = 683ms
 - cPython = 92,213ms (1 and a half min)
