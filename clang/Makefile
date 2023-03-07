@@ -49,6 +49,10 @@ linear: src/linear-search.c
 binary: src/binary-search.c
 	gcc ${FLAGS} src/binary-search.c bin/Arrays.o bin/Time.o -o out/binary-search.out
 
+quick-select: src/quick-select.c
+	gcc ${FLAGS} src/quick-select.c bin/Arrays.o bin/Time.o -o out/quick-select.out
+
+
 # Others -----------------------------------------------------------------------
 
 find-intersection: src/find-intersection.c

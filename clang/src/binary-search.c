@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "../headers/Arrays.h"
 #include "../headers/Time.h"

@@ -61,6 +61,10 @@ and the second is (new) sort on random numbers (rng: 0, INT_MAX).
 
 - C = 4ms (same for while_loop and recursion)
 
+## Quick Select 40k
+
+- C = 16,159ms
+
 --------------------------------------------------------------------------------
 
 # How gains are calculated here

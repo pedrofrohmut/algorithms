@@ -58,7 +58,7 @@ Result bench_generate_random_values_array(const int size)
     return (Result) {arr, get_time_ms(start, end)};
 }
 
-int * get_ordered_copy(int * arr, const int size)
+int * get_ordered_copy(const int * arr, const int size)
 {
     int * copy = malloc(sizeof(int) * size);
     memcpy(copy, arr, sizeof(int) * size);

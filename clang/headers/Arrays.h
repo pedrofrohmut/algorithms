@@ -18,7 +18,7 @@ int * generate_limited_random_values_array(const int size, const int limit);
 
 Result bench_generate_random_values_array(const int size);
 
-int * get_ordered_copy(int * arr, const int size);
+int * get_ordered_copy(const int arr[], const int size);
 
 void swap(int * a, int * b);
 
