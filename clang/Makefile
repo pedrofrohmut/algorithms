@@ -8,15 +8,16 @@ FLAGS=-std=c99 -Ofast
 
 # Libs -------------------------------------------------------------------------
 
-libs:
-	gcc ${FLAGS} -c lib/Arrays.c -o bin/Arrays.o
-	gcc ${FLAGS} -c lib/Time.c -o bin/Time.o
-
-arrays: lib/Arrays.c
+arrays-lib: lib/Arrays.c
 	gcc ${FLAGS} -c lib/Arrays.c -o bin/Arrays.o
 
-time: lib/Time.c
+time-lib: lib/Time.c
 	gcc ${FLAGS} -c lib/Time.c -o bin/Time.o
+
+linked-list-lib: lib/LinkedList.c
+	gcc ${FLAGS} -c lib/LinkedList.c -o bin/LinkedList.o
+
+libs: arrays-lib time-lib linked-list-lib
 
 # Sort -------------------------------------------------------------------------
 
@@ -52,6 +53,11 @@ binary: src/binary-search.c
 quick-select: src/quick-select.c
 	gcc ${FLAGS} src/quick-select.c bin/Arrays.o bin/Time.o -o out/quick-select.out
 
+
+# Data Structures --------------------------------------------------------------
+
+linked-list: src/linked-list.c
+	gcc ${FLAGS} src/linked-list.c bin/LinkedList.o -o out/linked-list.out
 
 # Others -----------------------------------------------------------------------
 
