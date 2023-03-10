@@ -17,7 +17,10 @@ time-lib: lib/Time.c
 linked-list-lib: lib/LinkedList.c
 	gcc ${FLAGS} -c lib/LinkedList.c -o bin/LinkedList.o
 
-libs: arrays-lib time-lib linked-list-lib
+queue-lib: lib/Queue.c
+	gcc ${FLAGS} -c lib/Queue.c -o bin/Queue.o
+
+libs: arrays-lib time-lib linked-list-lib queue-lib
 
 # Sort -------------------------------------------------------------------------
 
@@ -56,8 +59,11 @@ quick-select: src/quick-select.c
 
 # Data Structures --------------------------------------------------------------
 
-linked-list: src/linked-list.c
+linked-list: linked-list-lib src/linked-list.c
 	gcc ${FLAGS} src/linked-list.c bin/LinkedList.o -o out/linked-list.out
+
+queue: queue-lib src/queue.c
+	gcc ${FLAGS} src/queue.c bin/Queue.o -o out/queue.out
 
 # Others -----------------------------------------------------------------------
 
