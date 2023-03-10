@@ -32,7 +32,7 @@ void enqueue(Queue * queue, const char * value)
     queue->size++;
 }
 
-Node * dequeue(Queue * queue)
+char * dequeue(Queue * queue)
 {
     if (queue->size < 1) return NULL;
 
@@ -46,9 +46,14 @@ Node * dequeue(Queue * queue)
         queue->last = old_last->prev;
         queue->last->next = NULL;
     }
-
     queue->size--;
-    return old_last;
+
+    char * value = malloc(strlen(old_last->value) + 1);
+    strcpy(value, old_last->value);
+
+    free(old_last);
+
+    return value;
 }
 
 void print_nodes(const Queue * queue)

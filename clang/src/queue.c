@@ -24,16 +24,25 @@ int main()
 
     // Dequeue all values
     printf("\n> Dequeue 5 times\n");
-    Node * node1 = dequeue(queue);
-    Node * node2 = dequeue(queue);
-    Node * node3 = dequeue(queue);
-    Node * node4 = dequeue(queue);
-    Node * node5 = dequeue(queue); // Extra to test on empty queue
-    free(node1);
-    free(node2);
-    free(node3);
-    free(node4);
-    free(node5);
+    char * first_value = dequeue(queue);
+    char * node2_value = dequeue(queue);
+    char * node3_value = dequeue(queue);
+    char * last_value  = dequeue(queue);
+    char * extra_value = dequeue(queue); // Extra to test on empty queue
+
+    printf("\n> Print dequeued values\n");
+    printf("First node value:  %s\n", first_value);
+    printf("Second node value: %s\n", node2_value);
+    printf("Third node value:  %s\n", node3_value);
+    printf("Last node value:   %s\n", last_value);
+    printf("Extra node value:  %s\n", extra_value);
+
+    printf("\n> Free the dequeued values\n");
+    free(first_value);
+    free(node2_value);
+    free(node3_value);
+    free(last_value);
+    free(extra_value);
 
     printf("\n> Print after dequeue 5 times\n");
     print_nodes(queue);
