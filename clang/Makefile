@@ -20,6 +20,9 @@ linked-list-lib: lib/LinkedList.c
 queue-lib: lib/Queue.c
 	gcc ${FLAGS} -c lib/Queue.c -o bin/Queue.o
 
+stack-lib: lib/Stack.c
+	gcc ${FLAGS} -c lib/Stack.c -o bin/Stack.o
+
 libs: arrays-lib time-lib linked-list-lib queue-lib
 
 # Sort -------------------------------------------------------------------------
@@ -64,6 +67,9 @@ linked-list: linked-list-lib src/linked-list.c
 
 queue: queue-lib src/queue.c
 	gcc ${FLAGS} src/queue.c bin/Queue.o -o out/queue.out
+
+stack: stack-lib src/stack.c
+	gcc ${FLAGS} src/stack.c bin/Stack.o -o out/stack.out
 
 # Others -----------------------------------------------------------------------
 
