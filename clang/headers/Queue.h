@@ -10,15 +10,15 @@
 //     create_queue
 //     print_nodes
 
-typedef struct Node {
+typedef struct Queue_Node {
     const char * value;
-    struct Node * prev;
-    struct Node * next;
-} Node;
+    struct Queue_Node * prev;
+    struct Queue_Node * next;
+} Queue_Node;
 
 typedef struct Queue {
-    Node * first;
-    Node * last;
+    Queue_Node * first;
+    Queue_Node * last;
     size_t size;
 } Queue;
 

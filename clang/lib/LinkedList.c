@@ -15,7 +15,7 @@ Linked_List * create_list()
 void append_node(Linked_List * list, const char * value)
 {
     // Prepare new node
-    Node * new_node = malloc(sizeof(Node));
+    Linked_List_Node * new_node = malloc(sizeof(Linked_List_Node));
     new_node->value = value;
     new_node->next = NULL;
 
@@ -26,7 +26,7 @@ void append_node(Linked_List * list, const char * value)
         list->first = new_node;
     } else {
         // Go to last node
-        Node * iterator = list->first;
+        Linked_List_Node * iterator = list->first;
         while (iterator->next != NULL) {
             iterator = iterator->next;
         }
@@ -41,15 +41,15 @@ void add_node_at(Linked_List * list, const char * value, const size_t index)
     if (index > list->size || index < 0) return;
 
     // Prepare new node
-    Node * new_node = malloc(sizeof(Node));
+    Linked_List_Node * new_node = malloc(sizeof(Linked_List_Node));
     new_node->value = value;
     new_node->next = NULL;
 
     list->size++;
 
     // Iterate until index
-    Node * iterator = list->first;
-    Node * before = NULL;
+    Linked_List_Node * iterator = list->first;
+    Linked_List_Node * before = NULL;
     size_t i = 0;
     while (i < index) {
         before = iterator;
@@ -62,18 +62,18 @@ void add_node_at(Linked_List * list, const char * value, const size_t index)
         new_node->next = list->first;
         list->first = new_node;
     } else {
-        Node * temp = before->next;
+        Linked_List_Node * temp = before->next;
         before->next = new_node;
         new_node->next = temp;
     }
 }
 
-Node * find_node_by_index(const Linked_List * list, const size_t index)
+Linked_List_Node * find_node_by_index(const Linked_List * list, const size_t index)
 {
     // Out of bounds
     if (index > list->size - 1 || index < 0) return NULL;
 
-    Node * iterator = list->first;
+    Linked_List_Node * iterator = list->first;
     size_t i = 0;
 
     // Iterate until index
@@ -85,9 +85,9 @@ Node * find_node_by_index(const Linked_List * list, const size_t index)
     return iterator;
 }
 
-Node * find_node_by_value(const Linked_List * list, const char * value)
+Linked_List_Node * find_node_by_value(const Linked_List * list, const char * value)
 {
-    Node * iterator = list->first;
+    Linked_List_Node * iterator = list->first;
 
     // Iterate until found or last node
     while (iterator != NULL) {
@@ -103,8 +103,8 @@ void delete_node_by_index(Linked_List * list, const size_t index)
     // Out of bounds
     if (index > list->size || index < 0) return;
 
-    Node * iterator = list->first;
-    Node * before = NULL;
+    Linked_List_Node * iterator = list->first;
+    Linked_List_Node * before = NULL;
     size_t i = 0;
 
     // Iterate until the index
@@ -130,8 +130,8 @@ void delete_node_by_value(Linked_List * list, const char * value)
     // Empty list
     if (list->first == NULL) return;
 
-    Node * iterator = list->first;
-    Node * before = NULL;
+    Linked_List_Node * iterator = list->first;
+    Linked_List_Node * before = NULL;
 
     // Iterate until found or last node
     while (iterator != NULL) {
@@ -153,12 +153,12 @@ void delete_node_by_value(Linked_List * list, const char * value)
 
 void free_nodes(Linked_List * list)
 {
-    Node * iterator = list->first;
+    Linked_List_Node * iterator = list->first;
     size_t counter = 0;
 
     // Iterate until last node
     while (iterator != NULL) {
-        Node * temp = iterator;
+        Linked_List_Node * temp = iterator;
         iterator = iterator->next;
 
         // Debug message can be removed or commented out
@@ -175,7 +175,7 @@ void free_nodes(Linked_List * list)
 
 void print_nodes(const Linked_List * list)
 {
-    Node * iterator = list->first;
+    Linked_List_Node * iterator = list->first;
     size_t counter = 0;
 
     // Iterate until last node
@@ -186,14 +186,14 @@ void print_nodes(const Linked_List * list)
     }
 }
 
-void print_node(const Node * node)
+void print_node(const Linked_List_Node * node)
 {
     const char * value = node == NULL ? "NULL" : node->value;
-    printf("Node: %s\n", value);
+    printf("Linked_List_Node: %s\n", value);
 }
 
-void print_node_with_index(const Node * node, const size_t index)
+void print_node_with_index(const Linked_List_Node * node, const size_t index)
 {
     const char * value = node == NULL ? "NULL" : node->value;
-    printf("Node %zu: %s\n", index, value);
+    printf("Linked_List_Node %zu: %s\n", index, value);
 }

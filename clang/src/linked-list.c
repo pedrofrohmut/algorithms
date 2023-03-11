@@ -32,29 +32,29 @@ int main()
     print_nodes(list);
 
     // Find by index
-    printf("\n> Nodes At\n");
-    Node * node1 = find_node_by_index(list, 0);
+    printf("\n> Linked_List_Nodes At\n");
+    Linked_List_Node * node1 = find_node_by_index(list, 0);
     print_node_with_index(node1, 0);
-    Node * node2 = find_node_by_index(list, 1);
+    Linked_List_Node * node2 = find_node_by_index(list, 1);
     print_node_with_index(node2, 1);
-    Node * node3 = find_node_by_index(list, 2);
+    Linked_List_Node * node3 = find_node_by_index(list, 2);
     print_node_with_index(node3, 2);
-    Node * node4 = find_node_by_index(list, 3);
+    Linked_List_Node * node4 = find_node_by_index(list, 3);
     print_node_with_index(node4, 3);
-    Node * node5 = find_node_by_index(list, 4);
+    Linked_List_Node * node5 = find_node_by_index(list, 4);
     print_node_with_index(node5, 4);
-    Node * node6 = find_node_by_index(list, 5);
+    Linked_List_Node * node6 = find_node_by_index(list, 5);
     print_node_with_index(node6, 5);
 
     // Search (Find by value)
     printf("\n> Search (find node by value)\n");
-    Node * timeNode = find_node_by_value(list, "Time");
-    printf("Found node with 'Time'? %s\n", timeNode != NULL ? "Yes" : "No");
-    Node * fooNode = find_node_by_value(list, "Foo");
-    printf("Found node with 'Foo'? %s\n", fooNode != NULL ? "Yes" : "No");
+    Linked_List_Node * timeLinked_List_Node = find_node_by_value(list, "Time");
+    printf("Found node with 'Time'? %s\n", timeLinked_List_Node != NULL ? "Yes" : "No");
+    Linked_List_Node * fooLinked_List_Node = find_node_by_value(list, "Foo");
+    printf("Found node with 'Foo'? %s\n", fooLinked_List_Node != NULL ? "Yes" : "No");
 
     // Add node at index. Using VIRUS to be easy to spot
-    printf("\n> Add Node At\n");
+    printf("\n> Add Linked_List_Node At\n");
     add_node_at(list, "FIRST_VIRUS", 0);
     add_node_at(list, "ME_VIRUS", 2);
     add_node_at(list, "LAST_VIRUS", 6);

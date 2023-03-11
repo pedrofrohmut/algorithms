@@ -16,7 +16,7 @@ Queue * create_queue()
 void enqueue(Queue * queue, const char * value)
 {
     // Prepare new node
-    Node * new_node = malloc(sizeof(Node));
+    Queue_Node * new_node = malloc(sizeof(Queue_Node));
     new_node->prev = NULL;
     new_node->value = value;
 
@@ -36,7 +36,7 @@ char * dequeue(Queue * queue)
 {
     if (queue->size < 1) return NULL;
 
-    Node * old_last;
+    Queue_Node * old_last;
     if (queue->size == 1) {
         old_last = queue->first;
         queue->last = NULL;
@@ -58,7 +58,7 @@ char * dequeue(Queue * queue)
 
 void print_nodes(const Queue * queue)
 {
-    Node * iterator = queue->first;
+    Queue_Node * iterator = queue->first;
     size_t counter = 0;
 
     // Iterate full queue
@@ -71,11 +71,11 @@ void print_nodes(const Queue * queue)
 
 void free_queue(Queue * queue)
 {
-    Node * iterator = queue->first;
+    Queue_Node * iterator = queue->first;
 
     // Iterate full queue
     while (iterator != NULL) {
-        Node * temp = iterator;
+        Queue_Node * temp = iterator;
         iterator = iterator->next;
         free(temp);
     }
