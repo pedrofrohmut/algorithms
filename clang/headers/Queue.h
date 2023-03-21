@@ -5,13 +5,13 @@
 
 // QUEUES (FIFO - First In First Out)
 // methods
-//     enqueue
-//     dequeue
-//     create_queue
-//     print_nodes
+//     queue_enqueue
+//     queue_dequeue
+//     queue_create_queue
+//     queue_print_nodes
 
 typedef struct Queue_Node {
-    const char * value;
+    char * value;
     struct Queue_Node * prev;
     struct Queue_Node * next;
 } Queue_Node;
@@ -22,10 +22,11 @@ typedef struct Queue {
     size_t size;
 } Queue;
 
-Queue * create_queue();
-void enqueue(Queue * queue, const char * value);
-char * dequeue(Queue * queue);
-void print_nodes(const Queue * queue);
-void free_queue(Queue * queue);
+Queue * queue_create_queue();
+
+void queue_enqueue(Queue * queue, const char * value);
+char * queue_dequeue(Queue * queue);
+void queue_print_nodes(const Queue * queue);
+void queue_free_queue(Queue * queue);
 
 #endif

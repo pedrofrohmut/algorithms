@@ -3,32 +3,32 @@
 
 // QUEUES (FIFO - First In First Out)
 // methods
-//     enqueue
-//     dequeue
-//     create_queue
-//     print_nodes
+//     queue_enqueue
+//     queue_dequeue
+//     queue_create_queue
+//     queue_print_nodes
 #include "../headers/Queue.h"
 
 int main()
 {
-    Queue * queue = create_queue();
+    Queue * queue = queue_create_queue();
 
     // Populate
-    enqueue(queue, "Once");
-    enqueue(queue, "Upon");
-    enqueue(queue, "a");
-    enqueue(queue, "Time");
+    queue_enqueue(queue, "Once");
+    queue_enqueue(queue, "Upon");
+    queue_enqueue(queue, "a");
+    queue_enqueue(queue, "Time");
 
     printf("\n> Print after populate (Once Upon a Time) [Size = %zu]\n", queue->size);
-    print_nodes(queue);
+    queue_print_nodes(queue);
 
     // Dequeue all values
     printf("\n> Dequeue 5 times\n");
-    char * first_value = dequeue(queue);
-    char * node2_value = dequeue(queue);
-    char * node3_value = dequeue(queue);
-    char * last_value  = dequeue(queue);
-    char * extra_value = dequeue(queue); // Extra to test on empty queue
+    char * first_value = queue_dequeue(queue);
+    char * node2_value = queue_dequeue(queue);
+    char * node3_value = queue_dequeue(queue);
+    char * last_value  = queue_dequeue(queue);
+    char * extra_value = queue_dequeue(queue); // Extra to test on empty queue
 
     printf("\n> Print dequeued values\n");
     printf("First node value:  %s\n", first_value);
@@ -45,18 +45,18 @@ int main()
     free(extra_value);
 
     printf("\n> Print after dequeue 5 times\n");
-    print_nodes(queue);
+    queue_print_nodes(queue);
 
     // Populate 2
-    enqueue(queue, "foo");
-    enqueue(queue, "bar");
-    enqueue(queue, "baz");
+    queue_enqueue(queue, "foo");
+    queue_enqueue(queue, "bar");
+    queue_enqueue(queue, "baz");
 
     printf("\n> Print after populate (foo bar baz) [Size = %zu]\n", queue->size);
-    print_nodes(queue);
+    queue_print_nodes(queue);
 
     printf("\n> Free Queue\n");
-    free_queue(queue);
+    queue_free_queue(queue);
 
     free(queue);
 

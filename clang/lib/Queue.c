@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-Queue * create_queue()
+Queue * queue_create_queue()
 {
     Queue * new_queue = malloc(sizeof(Queue));
     new_queue->first = NULL;
@@ -13,7 +13,7 @@ Queue * create_queue()
     return new_queue;
 }
 
-void enqueue(Queue * queue, const char * value)
+void queue_enqueue(Queue * queue, const char * value)
 {
     // Prepare new node
     Queue_Node * new_node = malloc(sizeof(Queue_Node));
@@ -32,7 +32,7 @@ void enqueue(Queue * queue, const char * value)
     queue->size++;
 }
 
-char * dequeue(Queue * queue)
+char * queue_dequeue(Queue * queue)
 {
     if (queue->size < 1) return NULL;
 
@@ -56,7 +56,7 @@ char * dequeue(Queue * queue)
     return value;
 }
 
-void print_nodes(const Queue * queue)
+void queue_print_nodes(const Queue * queue)
 {
     Queue_Node * iterator = queue->first;
     size_t counter = 0;
@@ -69,7 +69,7 @@ void print_nodes(const Queue * queue)
     }
 }
 
-void free_queue(Queue * queue)
+void queue_free_queue(Queue * queue)
 {
     Queue_Node * iterator = queue->first;
 
