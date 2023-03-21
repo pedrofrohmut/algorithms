@@ -17,7 +17,7 @@
 
 
 typedef struct Linked_List_Node {
-    const char * value;
+    char * value;
     struct Linked_List_Node * next;
 } Linked_List_Node;
 

@@ -12,12 +12,18 @@ Linked_List * llist_create_list()
     return new_list;
 }
 
+Linked_List_Node * _prepare_new_node(const char * value)
+{
+    Linked_List_Node * new_node = malloc(sizeof(Linked_List_Node));
+    new_node->value = malloc(strlen(value) + 1);
+    strcpy(new_node->value, value);
+    new_node->next = NULL;
+    return new_node;
+}
+
 void llist_append_node(Linked_List * list, const char * value)
 {
-    // Prepare new node
-    Linked_List_Node * new_node = malloc(sizeof(Linked_List_Node));
-    new_node->value = value;
-    new_node->next = NULL;
+    Linked_List_Node * new_node = _prepare_new_node(value);
 
     list->size++;
 
@@ -40,10 +46,7 @@ void llist_add_node_at(Linked_List * list, const char * value, const size_t inde
     // Out of bounds
     if (index > list->size || index < 0) return;
 
-    // Prepare new node
-    Linked_List_Node * new_node = malloc(sizeof(Linked_List_Node));
-    new_node->value = value;
-    new_node->next = NULL;
+    Linked_List_Node * new_node = _prepare_new_node(value);
 
     list->size++;
 
@@ -98,6 +101,12 @@ Linked_List_Node * llist_find_node_by_value(const Linked_List * list, const char
     return NULL;
 }
 
+void _free_node(Linked_List_Node * node)
+{
+    free(node->value);
+    free(node);
+}
+
 void llist_delete_node_by_index(Linked_List * list, const size_t index)
 {
     // Out of bounds
@@ -121,7 +130,7 @@ void llist_delete_node_by_index(Linked_List * list, const size_t index)
         before->next = iterator->next;
     }
 
-    free(iterator);
+    _free_node(iterator);
     list->size--;
 }
 
@@ -147,7 +156,7 @@ void llist_delete_node_by_value(Linked_List * list, const char * value)
         before->next = iterator->next;
     }
 
-    free(iterator);
+    _free_node(iterator);
     list->size--;
 }
 
@@ -158,14 +167,14 @@ void llist_free_nodes(Linked_List * list)
 
     // Iterate until last node
     while (iterator != NULL) {
-        Linked_List_Node * temp = iterator;
+        Linked_List_Node * tmp = iterator;
         iterator = iterator->next;
 
         // Debug message can be removed or commented out
-        printf("[%zu] %s is Freed\n", counter, temp->value);
+        printf("[%zu] %s is Freed\n", counter, tmp->value);
 
         counter++;
-        free(temp);
+        _free_node(tmp);
     }
 
     // reset list
