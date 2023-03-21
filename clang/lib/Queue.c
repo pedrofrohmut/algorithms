@@ -13,12 +13,19 @@ Queue * queue_create_queue()
     return new_queue;
 }
 
+Queue_Node * _prepare_new_node(const char * value)
+{
+    Queue_Node * new_node = malloc(sizeof(Queue_Node));
+    new_node->value = malloc(strlen(value) + 1);
+    strcpy(new_node->value, value);
+    new_node->prev = NULL;
+    new_node->next = NULL;
+    return new_node;
+}
+
 void queue_enqueue(Queue * queue, const char * value)
 {
-    // Prepare new node
-    Queue_Node * new_node = malloc(sizeof(Queue_Node));
-    new_node->prev = NULL;
-    new_node->value = value;
+    Queue_Node * new_node = _prepare_new_node(value);
 
     // Arrange pointers
     new_node->next = queue->first;
@@ -30,6 +37,12 @@ void queue_enqueue(Queue * queue, const char * value)
     queue->first = new_node;
 
     queue->size++;
+}
+
+void _free_node(Queue_Node * node)
+{
+    free(node->value);
+    free(node);
 }
 
 char * queue_dequeue(Queue * queue)
@@ -51,7 +64,7 @@ char * queue_dequeue(Queue * queue)
     char * value = malloc(strlen(old_last->value) + 1);
     strcpy(value, old_last->value);
 
-    free(old_last);
+    _free_node(old_last);
 
     return value;
 }
@@ -75,8 +88,8 @@ void queue_free_queue(Queue * queue)
 
     // Iterate full queue
     while (iterator != NULL) {
-        Queue_Node * temp = iterator;
+        Queue_Node * tmp = iterator;
         iterator = iterator->next;
-        free(temp);
+        _free_node(tmp);
     }
 }
