@@ -5,16 +5,16 @@
 
 // STACK
 // methods
-//     create_stack
-//     push
-//     pop
-//     peek
-//     size
-//     print_nodes
-//     free_nodes
+//     stack_create_stack
+//     stack_push
+//     stack_pop
+//     stack_peek
+//     stack_size
+//     stack_print_nodes
+//     stack_free_nodes
 
 typedef struct Stack_Node {
-    const char * value;
+    char * value;
     struct Stack_Node * next;
 } Stack_Node;
 
@@ -23,12 +23,13 @@ typedef struct Stack {
     Stack_Node * top;
 } Stack;
 
-Stack * create_stack();
-void push(Stack * stack, const char * value);
-Stack_Node * pop(Stack * stack);
-char * peek(Stack * stack);
-size_t size(Stack * stack);
-void print_nodes(Stack * stack);
-void free_nodes(Stack * stack);
+Stack * stack_create_stack();
+
+void stack_push(Stack * stack, const char * value);
+Stack_Node * stack_pop(Stack * stack);
+char * stack_peek(Stack * stack);
+size_t stack_size(Stack * stack);
+void stack_print_nodes(Stack * stack);
+void stack_free_nodes(Stack * stack);
 
 #endif // STACK_HEADER
