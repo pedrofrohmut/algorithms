@@ -23,7 +23,10 @@ queue-lib: lib/Queue.c
 stack-lib: lib/Stack.c
 	gcc ${FLAGS} -c lib/Stack.c -o bin/Stack.o
 
-libs: arrays-lib time-lib linked-list-lib queue-lib
+binary-tree-lib: lib/BinaryTree.c
+	gcc ${FLAGS} -c lib/BinaryTree.c -o bin/BinaryTree.o
+
+libs: arrays-lib time-lib linked-list-lib queue-lib stack-lib binary-tree-lib
 
 # Sort -------------------------------------------------------------------------
 
@@ -61,6 +64,9 @@ quick-select: src/quick-select.c
 
 
 # Data Structures --------------------------------------------------------------
+
+binary-tree: binary-tree-lib src/binary-tree.c
+	gcc ${FLAGS} src/binary-tree.c bin/BinaryTree.o -o out/binary-tree.out
 
 linked-list: linked-list-lib src/linked-list.c
 	gcc ${FLAGS} src/linked-list.c bin/LinkedList.o -o out/linked-list.out
