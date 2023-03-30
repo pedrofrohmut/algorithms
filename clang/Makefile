@@ -45,6 +45,9 @@ merge: src/merge-sort.c
 selection: src/selection-sort.c
 	gcc ${FLAGS} src/selection-sort.c bin/Arrays.o bin/Time.o -o out/selection-sort.out
 
+swap-merge-sort: src/swap-merge-sort.c
+	gcc ${FLAGS} src/swap-merge-sort.c bin/Arrays.o bin/Time.o -o out/swap-merge-sort.out
+
 swap-quick: src/swap-quick-sort.c
 	gcc ${FLAGS} src/swap-quick-sort.c bin/Arrays.o bin/Time.o -o out/swap-quick-sort.out
 
