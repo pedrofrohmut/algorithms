@@ -9,19 +9,19 @@ and the second is (new) sort on random numbers (rng: 0, INT_MAX).
 
 ## Bubble Sort 40k
 
-- C = 2,401ms (regular: 5,500ms, gains: +129%)
-- CPP = 5,151ms
-- javascript = 3,039ms
-- cPython = 212,344ms (almost 4 mins)
-- Pypy = 5,029ms
+- C          =   2,401ms (regular: 5,500ms, gains: +129%)
+- CPP        =   5,151ms
+- javascript =   3,039ms
+- cPython    = 212,344ms (almost 4 mins)
+- Pypy       =   5,029ms
 
 ## Insertion Sort 40k
 
-- C = 330ms
-- CPP = 309ms
-- javascript = 683ms
-- cPython = 92,213ms (1 and a half min)
-- Pypy = 581ms
+- C          =    330ms
+- CPP        =    309ms
+- javascript =    683ms
+- cPython    = 92,213ms (1 and a half min)
+- Pypy       =    581ms
 
 ## MinMax Selection Sort 40k
 
@@ -29,19 +29,20 @@ and the second is (new) sort on random numbers (rng: 0, INT_MAX).
 
 ## Merge Sort 40k
 
-- C = 15ms (regular: 22ms, gains: +47%)
-- CPP = 11ms
-- javascript = 38ms
-- cPython = 306ms
-- Pypy = 269ms
+- C          =  15ms (regular: 22ms, gains: +47%)
+- CPP        =  11ms
+- javascript =  38ms
+- cPython    = 306ms
+- Pypy       = 269ms
 
 ## Selection Sort 40k
 
-- C = 691ms
-- CPP = 682ms
+- C          =   691ms
+- CPP        =   682ms
 - javascript = 1,630ms
-- cPython = 8,357ms
-- Pypy = 1,001ms
+- cPython    = 8,357ms
+- Pypy       = 1,001ms
+- Rust       =   968ms
 
 ## Swap Quick Sort
 
