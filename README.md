@@ -7,6 +7,13 @@ Results a taken by making a 10 tests sum and dividing it by 10.
 Some has 2 different results because left is (old) sort on shuffled array of 1..N
 and the second is (new) sort on random numbers (rng: 0, INT_MAX).
 
+obs:
+
+    All the programs to compile and run come from linux manjaro repos
+    for C and Cpp is used -Ofast
+    for Rust is used --release
+    for Python python3 and pypy3
+
 ## Bubble Sort 40k
 
 - C          =   2,401ms (regular: 5,500ms, gains: +129%)
@@ -22,6 +29,7 @@ and the second is (new) sort on random numbers (rng: 0, INT_MAX).
 - javascript =    683ms
 - cPython    = 92,213ms (1 and a half min)
 - Pypy       =    581ms
+- Rust       =    440ms
 
 ## MinMax Selection Sort 40k
 
