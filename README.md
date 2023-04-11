@@ -94,30 +94,30 @@ gains = (regular - optimized) / optimized
 
 # Algorithms Summary
 
-  Sorting
-    Bubble Sort
-    Insertion Sort
-    Merge Sort
-    MinMax Selection Sort
-    Selection Sort
-    Swap Merge Sort
-    Swap Quick Sort
-    Swap Selection Sort
+    * Sorting
+        * Bubble Sort
+        * Insertion Sort
+        * Merge Sort
+        * MinMax Selection Sort
+        * Selection Sort
+        * Swap Merge Sort
+        * Swap Quick Sort
+        * Swap Selection Sort
 
-  Search
-    Binary Search
-    Linear Search
-    Quick Select
+    * Search
+        * Binary Search
+        * Linear Search
+        * Quick Select
 
-  Data Structures
-    Binary Tree
-    Linked List
-    Queue
-    Stack
+    * Data Structures
+        * Binary Tree
+        * Linked List
+        * Queue
+        * Stack
 
-  Others
-    Find Intersection of two arrays
-    Head/Tail Recursion
+    * Others
+        * Find Intersection of two arrays
+        * Head/Tail Recursion
 
 --------------------------------------------------------------------------------
 
