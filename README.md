@@ -4,14 +4,11 @@ list sorted alphabetically by algorithm name.
 
 Results a taken by making a 10 tests sum and dividing it by 10.
 
-Some has 2 different results because left is (old) sort on shuffled array of 1..N
-and the second is (new) sort on random numbers (rng: 0, INT_MAX).
-
 obs:
 
     All the programs to compile and run come from linux manjaro repos
-    for C and Cpp is used -Ofast
-    for Rust is used --release
+    for C and Cpp is used gcc/g++ with -Ofast
+    for Rust is used cargo run with --release
     for Python python3 and pypy3
 
 ## Bubble Sort 40k
@@ -21,6 +18,7 @@ obs:
 - javascript =   3,039ms
 - cPython    = 212,344ms (almost 4 mins)
 - Pypy       =   5,029ms
+- Rust       =   2,632ms
 
 ## Insertion Sort 40k
 
