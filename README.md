@@ -4,6 +4,8 @@ list sorted alphabetically by algorithm name.
 
 Results a taken by making a 10 tests sum and dividing it by 10.
 
+* This is a Clang first repo others are here just as practice exercise
+
 obs:
 
     All the programs to compile and run come from linux manjaro repos
@@ -50,6 +52,10 @@ obs:
 - Pypy       = 1,001ms
 - Rust       =   968ms
 
+## Swap Merge Sort 40k
+
+- C = 9ms
+
 ## Swap Quick Sort
 
 - C = 0ms (Too fast to measure?)
@@ -85,6 +91,52 @@ or
 gains = (regular - optimized) / optimized
 
 --------------------------------------------------------------------------------
+
+# Algorithms Summary
+
+  Sorting
+    Bubble Sort
+    Insertion Sort
+    Merge Sort
+    MinMax Selection Sort
+    Selection Sort
+    Swap Merge Sort
+    Swap Quick Sort
+    Swap Selection Sort
+
+  Search
+    Binary Search
+    Linear Search
+    Quick Select
+
+  Data Structures
+    Binary Tree
+    Linked List
+    Queue
+    Stack
+
+  Others
+    Find Intersection of two arrays
+    Head/Tail Recursion
+
+--------------------------------------------------------------------------------
+
+# TODOS
+
+1. Dijkstra's Algorithm
+2. Hash Tables
+3. Review 'Swap Merge Sort'
+
+--------------------------------------------------------------------------------
+
+# Source
+
+1. Book: A Common-Sense Guide to Data Structures and Algorithms - Level up your
+core programming skills by Jay Wengrow
+
+--------------------------------------------------------------------------------
+
+# Languages stuff for the curious one
 
 languages in process: C, JavaScript, Python, Rust, Elixir, CSharp.
 
