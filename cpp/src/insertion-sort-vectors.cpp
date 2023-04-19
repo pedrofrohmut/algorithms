@@ -20,7 +20,8 @@ double get_time_ms(clock_t start, clock_t end)
 vector<int> _generate_array(int size)
 {
     srand(time(NULL));
-    vector<int> arr;
+    // vector<int> arr;
+    std::vector<int> arr(size);
     for (auto i = 1; i <= size; i++) {
         int index = rand() % i;
         arr.insert(arr.begin() + index, i);

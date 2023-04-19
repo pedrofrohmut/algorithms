@@ -25,7 +25,7 @@ obs:
 ## Insertion Sort 40k
 
 - C          =    330ms
-- CPP        =    309ms
+- CPP        =    309ms (vectors 390ms)
 - javascript =    683ms
 - cPython    = 92,213ms (1 and a half min)
 - Pypy       =    581ms
