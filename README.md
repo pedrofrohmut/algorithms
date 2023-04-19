@@ -17,6 +17,7 @@ obs:
 
 - C          =   2,401ms (regular: 5,500ms, gains: +129%)
 - CPP        =   5,151ms
+- CSharp     =     499ms (dont know why it is so fast yet)
 - javascript =   3,039ms
 - cPython    = 212,344ms (almost 4 mins)
 - Pypy       =   5,029ms
