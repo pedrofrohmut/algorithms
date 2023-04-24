@@ -43,6 +43,7 @@ obs:
 - javascript =  38ms
 - cPython    = 306ms
 - Pypy       = 269ms
+- Rust       =   6ms
 
 ## Selection Sort 40k
 
