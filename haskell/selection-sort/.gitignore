@@ -1,0 +1,27 @@
+# Stack-related files
+.stack-work/
+.stack-work-legacy/
+.hpc/
+dist/
+
+# Local files
+*.hi
+*.o
+*.ho
+*.hi~
+*.o~
+cabal.project.local
+cabal.project.local~
+stack.yaml.lock
+
+# Editor-specific files
+*~
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build artifacts
+my_haskell_project-exe
+my_haskell_project
+
