@@ -22,6 +22,5 @@ fizzbuzzMap n =
             | mod x 5 == 0 = "Buzz"
             | mod x 3 == 0 = "Fizz"
             | otherwise = show x
-
     in
         map fizzbuzzIt [1..n]
