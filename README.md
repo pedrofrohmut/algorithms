@@ -128,6 +128,7 @@ gains = (regular - optimized) / optimized
 1. Dijkstra's Algorithm
 2. Hash Tables
 3. Review 'Swap Merge Sort'
+4. Make a Buffered Merge Sort
 
 --------------------------------------------------------------------------------
 
