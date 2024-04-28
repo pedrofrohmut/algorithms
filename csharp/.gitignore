@@ -1,0 +1,6 @@
+# Makefiles building stuff
+**/out/
+
+# Dotnet building stuff
+**/obj/
+**/bin/
