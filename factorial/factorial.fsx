@@ -1,3 +1,5 @@
+#! dotnet fsi
+
 let rec factorial n =
     if n < 2 then
         1
