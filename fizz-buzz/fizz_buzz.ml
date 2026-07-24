@@ -34,6 +34,43 @@ let fizz_buzz2 (limit: int): string list =
   in
   List.rev (aux [] 1 limit)
 
+type fizz_buzz_type =
+  | Fizz
+  | Buzz
+  | FizzBuzz
+  | JustNumber of int
+
+(* Creates a list of fizz buzz using the custom type *)
+let fizz_buzz3 (limit: int): fizz_buzz_type list =
+  let rec aux (acc: fizz_buzz_type list) (counter: int) (limit: int): fizz_buzz_type list =
+    match counter with
+    | i when i > limit -> acc
+    | i when i mod 15 == 0 -> aux (FizzBuzz :: acc) (i + 1) limit
+    | i when i mod 5 == 0 -> aux (Buzz :: acc) (i + 1) limit
+    | i when i mod 3 == 0 -> aux (Fizz :: acc) (i + 1) limit
+    | i -> aux (JustNumber i :: acc) (i + 1) limit
+  in
+  if limit < 0 then
+    failwith "Fizz Buzz only support positive integer numbers"
+  else
+    List.rev (aux [] 1 limit)
+
+(* Prints a Fizz Buzz Type list *)
+let fizz_buzz_printer2 (limit: int): unit =
+  let string_of_fizz_buzz_type (typ: fizz_buzz_type): string  =
+    match typ with
+    | Fizz -> "Fizz"
+    | Buzz -> "Buzz"
+    | FizzBuzz -> "FizzBuzz"
+    | JustNumber x -> string_of_int x
+  in
+  let seq =
+    fizz_buzz3 limit
+    |> List.map (fun x -> string_of_fizz_buzz_type x)
+    |> String.concat ", "
+  in
+  Printf.printf "FizzBuzz => [%s]\n" seq
+
 let fizz_buzz_printer (fizz_buzz_fun: int -> string list) (limit: int): unit =
   let seq = fizz_buzz_fun limit |> String.concat ", " in
   let out = Printf.sprintf "FizzBuzz => [%s]" seq in
@@ -41,7 +78,8 @@ let fizz_buzz_printer (fizz_buzz_fun: int -> string list) (limit: int): unit =
 
 let main (): unit =
   fizz_buzz_printer fizz_buzz 100;
-  fizz_buzz_printer fizz_buzz2 100
+  fizz_buzz_printer fizz_buzz2 100;
+  fizz_buzz_printer2 100
 
 let () =
   main ()
