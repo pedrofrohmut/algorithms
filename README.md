@@ -41,11 +41,12 @@
 	- C
 	- C++
 
-- VM
+- VM / GC
 	- C#
 
 - Scripting
 	- Javascript
+    - Bash
 
 - Functional
 	- Ocaml
