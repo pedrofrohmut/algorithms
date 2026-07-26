@@ -6,7 +6,6 @@
   FizzBuzz when it is multiple of 3 and 5.
  *)
 
-(* TODO: make a fizz buzz with a custom type instead of just strings *)
 (* Regular recursion with callstack unwinding at the end *)
 let fizz_buzz (limit: int): string list =
   let rec fizz_buzz (limit: int): string list =
