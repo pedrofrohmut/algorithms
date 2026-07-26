@@ -26,7 +26,7 @@
 
    {b Returns:}
    : int - The random number between first and last both inclusive
-*)
+ *)
 let get_rand_num (first: int) (last: int): int =
   if first < 0 then
     failwith "The first value must be a positive integer"
@@ -52,24 +52,12 @@ let game_over (tries: int): unit =
   Printf.printf "You scored %d points.\n" score;
 
   match score with
-
-  | x when x >= 100 ->
-     print_endline "What is happening? First try. Holy Cow!!!"
-
-  | x when x > 80 ->
-     print_endline "Great!! That's is some game skills right there."
-
-  | x when x > 60 ->
-     print_endline "Good! Not a chad but getting there."
-
-  | x when x > 40 ->
-     print_endline "Could be better but you still won."
-
-  | x when x > 0 ->
-     print_endline "Broh is just guessing at this point."
-
-  | _ -> (* zero or negative *)
-     print_endline "Negative score. Brother uuulll."
+  | x when x >= 100 -> print_endline "What is happening? First try. Holy Cow!!!"
+  | x when x > 80 -> print_endline "Great!! That's is some game skills right there."
+  | x when x > 60 -> print_endline "Good! Not a chad but getting there."
+  | x when x > 40 -> print_endline "Could be better but you still won."
+  | x when x > 0 -> print_endline "Broh is just guessing at this point."
+  | _ -> print_endline "Negative score. Brother uuulll."
 
 (**
    Try to remove the double semicolon at the end if the user is in the ocaml REPL
@@ -104,7 +92,6 @@ let rec game_loop (rand_num: int) (first: int) (last: int) (tries: int): unit =
   print_endline "Enter a number between 1 and 100";
 
   let str_input = read_line() |> maybe_clean_repl_suffix in
-  print_endline ("User input: " ^ str_input);
 
   match int_of_string str_input with
 
@@ -140,26 +127,6 @@ let main (): unit =
   let first = 1 in
   let last = 100 in
   let rand_num = get_rand_num first last in
-  (* Printf.printf "Rand number is: %d\n" rand_num; *)
-
-  print_endline "Now. Try to guess what the number is";
-  let tries = 0 in
-  game_loop rand_num first last tries
-
-(**
-   Entry point for the game. Inits the random seed, generate a number and says the
-   welcome message
- *)
-let main (): unit =
-  Random.self_init (); (* Uses system to init with a random seed *)
-
-  print_endline "Hello.";
-  print_endline "Welcome to the Guess The Number Game!";
-
-  let first = 1 in
-  let last = 100 in
-  let rand_num = get_rand_num first last in
-  (* Printf.printf "Rand number is: %d\n" rand_num; *)
 
   print_endline "Now. Try to guess what the number is";
   let tries = 0 in
