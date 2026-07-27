@@ -40,7 +40,7 @@ let is_palindrome (src: string): bool =
     if i > j then
       true
 
-    else if src.[i] != src.[j] then
+    else if src.[i] <> src.[j] then
       false
 
     else
@@ -55,7 +55,7 @@ let is_palindrome (src: string): bool =
 
 let test (label: string) (is_palindrome_fun: string -> bool) (src: string) (expected: bool): unit =
   let result = is_palindrome_fun src in
-  if result != expected then
+  if result <> expected then
     Printf.printf "Error -> %s with '%s' expected '%B' but got '%B' instead.\n" label src expected result
 
 let main (): unit =

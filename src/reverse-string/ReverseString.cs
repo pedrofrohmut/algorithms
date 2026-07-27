@@ -27,7 +27,7 @@ string ReverseString2(string source)
 void Test(Func<string, string> reverseFunction, string source, string expected)
 {
     string reversed = reverseFunction(source);
-    if (reversed != expected) {
+    if (reversed <> expected) {
         Console.WriteLine($"[Error] Expected '{expected}' but got '{reversed}' instead.");
     }
 }

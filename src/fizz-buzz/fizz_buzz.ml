@@ -12,9 +12,9 @@ let fizz_buzz (limit: int): string list =
     match limit with
     | x when x < 0 -> failwith "Fizz Buzz only support positive integer numbers"
     | 0 -> []
-    | x when x mod 15 == 0 -> "FizzBuzz" :: fizz_buzz (limit - 1)
-    | x when x mod 5 == 0  -> "Buzz" :: fizz_buzz (limit - 1)
-    | x when x mod 3 == 0  -> "Fizz" :: fizz_buzz (limit - 1)
+    | x when x mod 15 = 0 -> "FizzBuzz" :: fizz_buzz (limit - 1)
+    | x when x mod 5 = 0  -> "Buzz" :: fizz_buzz (limit - 1)
+    | x when x mod 3 = 0  -> "Fizz" :: fizz_buzz (limit - 1)
     | x -> string_of_int x :: fizz_buzz (limit - 1)
   in
   List.rev (fizz_buzz limit)
@@ -26,9 +26,9 @@ let fizz_buzz2 (limit: int): string list =
     match counter with
     | i when i < 0 -> failwith "Fizz Buzz only support positive integer numbers"
     | i when i > limit -> acc
-    | i when i mod 15 == 0 -> aux ("FizzBuzz" :: acc) (i + 1) limit
-    | i when i mod 5 == 0  -> aux ("Buzz" :: acc) (i + 1) limit
-    | i when i mod 3 == 0  -> aux ("Fizz" :: acc) (i + 1) limit
+    | i when i mod 15 = 0 -> aux ("FizzBuzz" :: acc) (i + 1) limit
+    | i when i mod 5 = 0  -> aux ("Buzz" :: acc) (i + 1) limit
+    | i when i mod 3 = 0  -> aux ("Fizz" :: acc) (i + 1) limit
     | i -> aux (string_of_int i :: acc) (i + 1) limit
   in
   List.rev (aux [] 1 limit)
@@ -44,9 +44,9 @@ let fizz_buzz3 (limit: int): fizz_buzz_type list =
   let rec aux (acc: fizz_buzz_type list) (counter: int) (limit: int): fizz_buzz_type list =
     match counter with
     | i when i > limit -> acc
-    | i when i mod 15 == 0 -> aux (FizzBuzz :: acc) (i + 1) limit
-    | i when i mod 5 == 0 -> aux (Buzz :: acc) (i + 1) limit
-    | i when i mod 3 == 0 -> aux (Fizz :: acc) (i + 1) limit
+    | i when i mod 15 = 0 -> aux (FizzBuzz :: acc) (i + 1) limit
+    | i when i mod 5 = 0 -> aux (Buzz :: acc) (i + 1) limit
+    | i when i mod 3 = 0 -> aux (Fizz :: acc) (i + 1) limit
     | i -> aux (JustNumber i :: acc) (i + 1) limit
   in
   if limit < 0 then
