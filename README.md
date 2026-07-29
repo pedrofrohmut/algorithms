@@ -7,6 +7,10 @@
 	- Temperature Converter CLI
     - Number base converter
 
+    - Stack Based Virtual Machine
+      based on the Tsoding video: https://www.youtube.com/watch?v=2qV-1JhxWeE
+      and the gist: https://gist.github.com/rexim/a52f89e6500ac6328f017d0db1b518b8
+
 - Basic
 	- Factorial
 	- Fibonacci Sequence
