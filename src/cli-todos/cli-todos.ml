@@ -5,8 +5,11 @@ let print_all_args (): unit =
     Printf.printf "[%i] %s\n" i Sys.argv.(i)
   done
 
+let print_separator (): unit =
+  Printf.printf "\n----------------------------------------\n\n"
+
 let show_help (): unit =
-  print_endline {|Usage: cli-todos [command] [args]
+  print_endline {|Usage: cli-todos [flag | command [args]]...
 
  List, Add, Remove todos from a file using this cli tool. You can add todos to the
 current todos file with `cli-todos add "buy milk"`. You can remove todos after
@@ -27,7 +30,7 @@ let show_interactive_help (): unit =
 Obs: arg0 is not needed. It will be provided by the tool.|}
 
 let show_version (): unit =
-  print_endline {|cli-todos 1.0
+  print_endline {|Version: cli-todos 1.0
 Pedro Frohmut 2026 Copyrights.
 License MIT.|}
 
@@ -40,7 +43,18 @@ let list_todos (file_name: string): unit =
   if not @@ Sys.file_exists file_name then
     print_endline "No todos to list at the moment."
   else
-    failwith "Not implemented: Read and list the todos with line numbers"
+    let in_channel = open_in_gen [Open_rdonly; Open_text] 0o644 file_name in
+    let rec loop i in_channel =
+      let line = In_channel.input_line in_channel in
+      match line with
+      | None ->
+         ()
+      | Some line_value ->
+         Printf.printf "%d - %s\n" (i + 1) line_value;
+         loop (i + 1) in_channel
+    in
+    loop 0 in_channel;
+    close_in in_channel
 
 let array_has_next (arr: 'a array) (position: int): bool =
   (position + 1) < Array.length arr
@@ -49,32 +63,49 @@ let add_todo (file_name: string) (args: string array) (position: int): unit =
   let err_msg = "There is no text after the command to be used as the todo text." in
   let has_next_arg () = array_has_next args position in
   let is_next_arg_flag () = String.starts_with ~prefix:"-" args.(position + 1) in
+  let is_empty_text () = String.is_empty @@ String.trim args.(position + 1) in
 
+  (* Lazy conditions to avoid runtime errors *)
   if not (has_next_arg ()) then
     print_endline err_msg
   else if is_next_arg_flag () then
     print_endline err_msg
+  else if is_empty_text () then
+    print_endline "Todo text cannot be empty or blank"
   else
     let todo_text = args.(position + 1) in
 
     (* append the text to the file *)
     let out_channel = open_out_gen [Open_creat; Open_append] 0o644 file_name in
-    Printf.fprintf out_channel "%s\n" todo_text;
-    close_out out_channel
+    Printf.fprintf out_channel "%s\n" (String.trim todo_text);
+    close_out out_channel;
 
-(* TODO: Keep reading the arguments after all the cases.
-   Maybe read all the args to a datastructure and the use struct_has "-h" | "--help" *)
+    print_endline "Todo added.";
+    list_todos file_name
+
+let remove_todo (file_name: string) (args: string array) (i: int): unit =
+  failwith "Not implemented"
+
 let process_args (args: string array) (file_name: string): unit =
-  let loop i args =
-    let curr = args.(i) in
-    match curr with
-    | "-h" | "--help" -> show_help ()
-    | "--interactive-help" -> show_interactive_help ()
-    | "-v" | "--version" -> show_version ()
-    | "list" -> list_todos file_name
-    | "add" -> add_todo file_name args i
-    | "remove" -> failwith "Not implemented"
-    | _ -> show_invalid_message ()
+  let rec loop i args =
+    if i >= Array.length args then
+      ()
+    else
+      (* 1 for the command + 1 for each extra argument the command takes *)
+      let increment = match args.(i) with
+        | "-h" | "--help" -> show_help (); 1
+        | "--interactive-help" -> show_interactive_help (); 1
+        | "-v" | "--version" -> show_version (); 1
+        | "list" -> list_todos file_name; 1
+        | "add" -> add_todo file_name args i; 2
+        | "remove" -> remove_todo file_name args i; 2
+        | _ -> show_invalid_message (); 1
+      in
+      let next_i = i + increment in
+
+      if next_i < Array.length args then print_separator ();
+
+      loop next_i args
   in
   loop 1 args
 
