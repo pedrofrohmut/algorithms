@@ -25,20 +25,20 @@ let get_middle (first: int) (last: int): int =
     if Utils.is_odd diff then result + 1 else result
 
 let binary_search (elem: 'a) (xs: 'a array): int =
-  let rec loop elem xs l r =
-    if l > r then failwith "Left position can never be bigger than right position"
+  let rec loop elem xs low high =
+    if low > high then failwith "Left position can never be bigger than right position"
     else
       (* Base cases *)
-      if xs.(l) = elem then l
-      else if xs.(r) = elem then r
-      else if (r - l) <= 1 then -1 (* Not found *)
+      if xs.(low) = elem then low
+      else if xs.(high) = elem then high
+      else if (high - low) <= 1 then -1 (* Not found *)
 
       else
-        let mid_pos = get_middle l r in
+        let mid_pos = get_middle low high in
         let mid_elem = xs.(mid_pos) in
         if mid_elem > elem
-        then loop elem xs l mid_pos (* Take the left slice + mid_elem *)
-        else loop elem xs mid_pos r (* Take the right slice + mid_elem *)
+        then loop elem xs low mid_pos (* Take the left slice + mid_elem *)
+        else loop elem xs mid_pos high (* Take the right slice + mid_elem *)
   in
   let len = Array.length xs in
   loop elem xs 0 (len - 1)
