@@ -39,30 +39,43 @@ let show_invalid_message (): unit =
  The valid options are: list, add, remove, etc.
  You can see at help with `cli-todos --help`.|}
 
+let get_in_channel (file_name: string): in_channel =
+  open_in_gen [Open_rdonly; Open_text] 0o644 file_name
+
+let get_out_channel_append (file_name: string): out_channel =
+  open_out_gen [Open_creat; Open_append] 0o644 file_name
+
 let list_todos (file_name: string): unit =
   if not @@ Sys.file_exists file_name then
     print_endline "No todos to list at the moment."
   else
-    let in_channel = open_in_gen [Open_rdonly; Open_text] 0o644 file_name in
-    let rec loop i in_channel =
-      let line = In_channel.input_line in_channel in
-      match line with
-      | None ->
-         ()
-      | Some line_value ->
-         Printf.printf "%d - %s\n" (i + 1) line_value;
-         loop (i + 1) in_channel
-    in
-    loop 0 in_channel;
+    let in_channel = get_in_channel file_name in
+    let lines = In_channel.input_lines in_channel in
+
+    if List.length lines == 0 then
+      print_endline "No todos at the moment."
+    else
+      List.iteri (fun index line -> Printf.printf "%d - %s\n" (index + 1) line) lines;
+
     close_in in_channel
 
 let array_has_next (arr: 'a array) (position: int): bool =
   (position + 1) < Array.length arr
 
+let is_flag (str: string): bool =
+  if not (String.starts_with ~prefix:"-" str) then
+    false
+  else
+    try
+      let _ = int_of_string str in
+      false (* a negative number also starts with a dash *)
+    with _ ->
+      true
+
 let add_todo (file_name: string) (args: string array) (position: int): unit =
   let err_msg = "There is no text after the command to be used as the todo text." in
   let has_next_arg () = array_has_next args position in
-  let is_next_arg_flag () = String.starts_with ~prefix:"-" args.(position + 1) in
+  let is_next_arg_flag () = is_flag args.(position + 1) in
   let is_empty_text () = String.is_empty @@ String.trim args.(position + 1) in
 
   (* Lazy conditions to avoid runtime errors *)
@@ -76,15 +89,48 @@ let add_todo (file_name: string) (args: string array) (position: int): unit =
     let todo_text = args.(position + 1) in
 
     (* append the text to the file *)
-    let out_channel = open_out_gen [Open_creat; Open_append] 0o644 file_name in
+    let out_channel = get_out_channel_append file_name in
     Printf.fprintf out_channel "%s\n" (String.trim todo_text);
     close_out out_channel;
 
     print_endline "Todo added.";
     list_todos file_name
 
-let remove_todo (file_name: string) (args: string array) (i: int): unit =
-  failwith "Not implemented"
+let remove_from_list (position: int) (xs: 'a list): 'a list =
+  let before = List.take (position - 1) xs in
+  let after = List.drop position xs in
+  List.append before after
+
+let remove_todo (file_name: string) (args: string array) (position: int): unit =
+  let err_msg =  "There is no line number after the command to be a reference to remove to todo." in
+  let err_msg2 = "Line number needs to be a positive integer bigger than zero." in
+  let has_next_arg () = array_has_next args position in
+  let is_next_arg_flag () = is_flag args.(position + 1) in
+
+  if not (has_next_arg ()) then
+    print_endline err_msg
+  else if is_next_arg_flag () then
+    print_endline err_msg
+  else
+    match int_of_string args.(position + 1) with
+    | exception Failure _ ->
+       print_endline err_msg2
+    | n when n < 1 ->
+       print_endline err_msg2
+    | n ->
+       let in_channel = get_in_channel file_name in
+       let lines = In_channel.input_lines in_channel in
+       if n > List.length lines then
+         begin
+           print_endline "Line to remove is too big. Check out the correct line number";
+           list_todos file_name
+         end
+       else
+         let new_lines = remove_from_list n lines in
+         let out_channel = open_out file_name in
+         List.iter (fun new_line -> Printf.fprintf out_channel "%s\n" new_line) new_lines;
+         close_out out_channel;
+         list_todos file_name
 
 let process_args (args: string array) (file_name: string): unit =
   let rec loop i args =
@@ -111,7 +157,7 @@ let process_args (args: string array) (file_name: string): unit =
 
 let main (): unit =
   if !Sys.interactive then
-    failwith "This tool is not compatible with the repl"
+    print_endline "This tool is not compatible with the repl"
   else
     let args = Sys.argv in
     if Array.length args = 1 then
