@@ -1,3 +1,5 @@
+let err_msg = "Error: Your code sucks.";;
+
 (*
   Tail of a List
   Beginner
@@ -327,3 +329,38 @@ let () =
   let expected = ["a"; "b"; "c"; "a"; "d"; "e"] in
   if res <> expected then
     failwith "Error: Your code sucks. `compress` Case 1"
+
+(*
+
+  Pack Consecutive Duplicates
+  Intermediate
+
+  Pack consecutive duplicates of list elements into sublists.
+
+  # pack ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "d"; "e"; "e"; "e"; "e"];;
+  - : string list list =
+    [["a"; "a"; "a"; "a"]; ["b"]; ["c"; "c"]; ["a"; "a"]; ["d"; "d"]; ["e"; "e"; "e"; "e"]]
+*)
+
+let pack xs =
+  let rec loop main_acc acc curr ys =
+    match ys with
+    | [] ->
+       List.rev (acc :: main_acc)
+
+    | y :: rest when y = curr ->
+       loop main_acc (y :: acc) curr rest
+
+    | y :: rest ->
+       loop (acc :: main_acc) [y] y rest
+  in
+
+  match xs with
+  | [] -> []
+  | x :: _ -> loop [] [] x xs
+
+let () =
+  let result =pack ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "d"; "e"; "e"; "e"; "e"] in
+  let expected = [["a"; "a"; "a"; "a"]; ["b"]; ["c"; "c"]; ["a"; "a"]; ["d"; "d"]; ["e"; "e"; "e"; "e"]] in
+  if result <> expected then
+    failwith @@ err_msg ^ "`pack` Case 1"
