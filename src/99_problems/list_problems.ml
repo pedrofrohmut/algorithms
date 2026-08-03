@@ -364,3 +364,120 @@ let () =
   let expected = [["a"; "a"; "a"; "a"]; ["b"]; ["c"; "c"]; ["a"; "a"]; ["d"; "d"]; ["e"; "e"; "e"; "e"]] in
   if result <> expected then
     failwith @@ err_msg ^ "`pack` Case 1"
+
+(* With only 1 accumulator *)
+let pack2 (xs: 'a list): 'a list list =
+  let rec loop acc curr ys =
+    match ys with
+    | [] ->
+       acc :: []
+
+    | y :: rest when curr = y ->
+       loop (y :: acc) curr rest
+
+    | y :: _ ->
+       acc :: loop [] y ys
+  in
+
+  match xs with
+  | [] -> []
+  | x :: _ -> loop [] x xs
+
+let () =
+  let result =pack ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "d"; "e"; "e"; "e"; "e"] in
+  let expected = [["a"; "a"; "a"; "a"]; ["b"]; ["c"; "c"]; ["a"; "a"]; ["d"; "d"]; ["e"; "e"; "e"; "e"]] in
+  if result <> expected then
+    failwith @@ err_msg ^ "`pack` Case 1"
+
+(*
+  Run-Length Encoding
+  Beginner
+
+  If you need to, refresh your memory about run-length encoding.
+
+  Here is an example:
+
+  # encode ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e"];;
+  - : (int * string) list =
+  [(4, "a"); (1, "b"); (2, "c"); (2, "a"); (1, "d"); (4, "e")]
+*)
+
+let encode (xs: 'a list): (int * 'a) list =
+  let rec loop acc curr ys =
+    match ys, acc with
+    | [], _ ->
+       acc :: []
+
+    | y :: rest, (n, _)  when y = curr ->
+       let new_acc = (n + 1), curr in
+       loop new_acc curr rest
+
+    | y :: rest, _ ->
+       let next_acc = (1, y) in
+       acc :: loop next_acc y rest
+  in
+
+  match xs with
+  | [] -> []
+  | x :: _ -> loop (0, x) x xs
+
+let () =
+  let result = encode ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e"] in
+  let expected = [(4, "a"); (1, "b"); (2, "c"); (2, "a"); (1, "d"); (4, "e")] in
+  if result <> expected then
+    failwith @@ err_msg ^ "`enconde Case 1"
+
+(*
+  Modified Run-Length Encoding
+  Beginner
+
+  Modify the result of the previous problem in such a way that if an element has
+  no duplicates it is simply copied into the result list. Only elements with
+  duplicates are transferred as (N E) lists.
+
+  Since OCaml lists are homogeneous, one needs to define a type to hold both
+  single elements and sub-lists.
+
+  type 'a rle =
+  | One of 'a
+  | Many of int * 'a
+
+  # encode ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e"];;
+  - : string rle list =
+  [Many (4, "a"); One "b"; Many (2, "c"); Many (2, "a"); One "d"; Many (4, "e")]
+*)
+
+type 'a rle =
+  | One of 'a
+  | Many of int * 'a
+
+let modified_encode (xs: 'a list):  'a rle list =
+  let incr_acc acc =
+    match acc with
+    | One value -> Many (2, value)
+    | Many (n, value) -> Many (n + 1, value)
+  in
+
+  let rec loop acc curr ys =
+    match ys with
+    | [] ->
+       acc :: []
+
+    | y :: rest when y = curr ->
+       let new_acc = incr_acc acc in
+       loop new_acc curr rest
+
+    | y :: rest ->
+       let next_acc = One y in
+       acc :: loop next_acc y rest
+  in
+
+  match xs with
+  | [] -> []
+  | x :: rest -> loop (One x) x rest
+
+let () =
+  let result = modified_encode ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e"] in
+  let expected = [Many (4, "a"); One "b"; Many (2, "c"); Many (2, "a"); One "d"; Many (4, "e")] in
+  if result <> expected then
+    failwith @@ err_msg ^ "`modified_encode` Case 1"
