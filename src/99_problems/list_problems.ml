@@ -567,3 +567,109 @@ let () =
   let expected = ["a"; "a"; "a"; "b"; "b"; "b"; "c"; "c"; "c"] in
   if result <> expected then
     failwith @@ err_msg ^ "`replicate` Case 1"
+
+(*
+  Drop Every N'th Element From a List
+  Intermediate
+
+  Drop every N'th element from a list.
+
+  # drop ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j"] 3;;
+  - : string list = ["a"; "b"; "d"; "e"; "g"; "h"; "j"]
+*)
+
+let rec drop (xs: 'a list) (n: int): 'a list =
+  match xs, n with
+  | [], _ -> []
+  | _, 0 -> xs
+  | head :: tail, _ -> drop tail (n - 1)
+
+(*
+  Split a List Into Two Parts; The Length of the First Part Is Given
+  Beginner
+
+  Split a list into two parts; the length of the first part is given.
+
+  If the length of the first part is longer than the entire list, then the first
+  part is the list and the second part is empty.
+
+  # split ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j"] 3;;
+  - : string list * string list = (["a"; "b"; "c"], ["d"; "e"; "f"; "g"; "h"; "i"; "j"])
+
+  # split ["a"; "b"; "c"; "d"] 5;;
+  - : string list * string list = (["a"; "b"; "c"; "d"], [])
+*)
+
+let split (xs: 'a list) (n: int): 'a list * 'a list =
+  let rec loop acc i ys =
+    match ys, i with
+    | [], _ -> List.rev acc, []
+    | _, 0 -> List.rev acc, ys
+    | y :: tail, _ -> loop (y :: acc) (i - 1) tail
+  in
+  loop [] n xs
+
+let () =
+  let result =  split ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j"] 3 in
+  let expected = (["a"; "b"; "c"], ["d"; "e"; "f"; "g"; "h"; "i"; "j"]) in
+  if result <> expected then
+    failwith @@ err_msg ^ "`split` Case 1";
+
+  let result = split ["a"; "b"; "c"; "d"] 5 in
+  let expected = (["a"; "b"; "c"; "d"], []) in
+  if result <> expected then
+    failwith @@ err_msg ^ "`split` Case 2"
+
+(*
+  Extract a Slice From a List
+  Intermediate
+
+  Given two indices, i and k, the slice is the list containing the elements
+  between the i'th and k'th element of the original list (both limits included).
+  Start counting the elements with 0 (this is the way the List module numbers
+  elements).
+
+  # slice ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j"] 2 6;;
+  - : string list = ["c"; "d"; "e"; "f"; "g"]
+*)
+
+let rec slice (xs: 'a list) (low: int) (high: int): 'a list =
+  match xs, low, high with
+  | [], _, _ -> []
+  | x :: _, 0, 0 -> x :: []
+  | x :: tail, 0, _ -> x :: slice tail 0 (high - 1)
+  | _ :: tail, _, _ -> slice tail (low - 1) (high - 1)
+
+let () =
+  let result = slice ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j"] 2 6 in
+  let expected = ["c"; "d"; "e"; "f"; "g"] in
+  if result <> expected then
+    failwith @@ err_msg ^ "`slice` Case 1"
+
+(*
+  Rotate a List N Places to the Left
+  Intermediate
+
+  Rotate a list N places to the left.
+
+  # rotate ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"] 3;;
+  - : string list = ["d"; "e"; "f"; "g"; "h"; "a"; "b"; "c"]
+*)
+
+let rotate (xs: 'a list) (n: int): 'a list =
+  let rec loop acc i ys =
+    match ys, i with
+    | [], _ | _, 0 ->
+       List.rev acc, ys
+
+    | y :: tail, _ ->
+       loop (y :: acc) (i - 1) tail
+  in
+  let rotation_slice, rest = loop [] n xs in
+  List.append rest rotation_slice
+
+let () =
+  let result = rotate ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"] 3 in
+  let expected = ["d"; "e"; "f"; "g"; "h"; "a"; "b"; "c"] in
+  if result <> expected then
+    failwith @@ err_msg ^ "`rotate` Case 1"
