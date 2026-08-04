@@ -342,31 +342,7 @@ let () =
     [["a"; "a"; "a"; "a"]; ["b"]; ["c"; "c"]; ["a"; "a"]; ["d"; "d"]; ["e"; "e"; "e"; "e"]]
 *)
 
-let pack xs =
-  let rec loop main_acc acc curr ys =
-    match ys with
-    | [] ->
-       List.rev (acc :: main_acc)
-
-    | y :: rest when y = curr ->
-       loop main_acc (y :: acc) curr rest
-
-    | y :: rest ->
-       loop (acc :: main_acc) [y] y rest
-  in
-
-  match xs with
-  | [] -> []
-  | x :: _ -> loop [] [] x xs
-
-let () =
-  let result =pack ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "d"; "e"; "e"; "e"; "e"] in
-  let expected = [["a"; "a"; "a"; "a"]; ["b"]; ["c"; "c"]; ["a"; "a"]; ["d"; "d"]; ["e"; "e"; "e"; "e"]] in
-  if result <> expected then
-    failwith @@ err_msg ^ "`pack` Case 1"
-
-(* With only 1 accumulator *)
-let pack2 (xs: 'a list): 'a list list =
+let pack (xs: 'a list): 'a list list =
   let rec loop acc curr ys =
     match ys with
     | [] ->
@@ -384,7 +360,7 @@ let pack2 (xs: 'a list): 'a list list =
   | x :: _ -> loop [] x xs
 
 let () =
-  let result =pack ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "d"; "e"; "e"; "e"; "e"] in
+  let result = pack ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "d"; "e"; "e"; "e"; "e"] in
   let expected = [["a"; "a"; "a"; "a"]; ["b"]; ["c"; "c"]; ["a"; "a"]; ["d"; "d"]; ["e"; "e"; "e"; "e"]] in
   if result <> expected then
     failwith @@ err_msg ^ "`pack` Case 1"
@@ -443,6 +419,10 @@ let () =
   | Many of int * 'a
 
   # encode ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e"];;
+  - : (int * string) list =
+  [(4, "a"); (1, "b"); (2, "c"); (2, "a"); (1, "d"); (4, "e")]
+
+  # modified_encode ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e"];;
   - : string rle list =
   [Many (4, "a"); One "b"; Many (2, "c"); Many (2, "a"); One "d"; Many (4, "e")]
 *)
@@ -451,7 +431,69 @@ type 'a rle =
   | One of 'a
   | Many of int * 'a
 
-let modified_encode (xs: 'a list):  'a rle list =
+let modified_encode (xs: 'a list): 'a rle list =
+  let rec loop (ys: (int * 'a) list): 'a rle list =
+    match ys with
+    | [] -> []
+    | (1, v) :: tail -> One v :: loop tail
+    | (n, v) :: tail -> Many (n, v) :: loop tail
+  in
+
+  let encoded = encode xs in
+  loop encoded
+
+let () =
+  let result = modified_encode ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e"] in
+  let expected = [Many (4, "a"); One "b"; Many (2, "c"); Many (2, "a"); One "d"; Many (4, "e")] in
+  if result <> expected then
+    failwith @@ err_msg ^ "`modified_encode` Case 1"
+
+(*
+  Decode a Run-Length Encoded List
+  Intermediate
+
+  Given a run-length code list generated as specified in the previous problem, construct its uncompressed version.
+
+  #  decode [Many (4, "a"); One "b"; Many (2, "c"); Many (2, "a"); One "d"; Many (4, "e")];;
+  - : string list =
+  ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e"]
+*)
+
+let rec decode (xs: 'a rle list): 'a list =
+  if xs = [] then
+    []
+
+  else
+    let head = List.hd xs in
+    let tail = List.tl xs in
+
+    match head with
+    | One v -> v :: decode tail
+    | Many (2, v) -> v :: decode (One v :: tail)
+    | Many (n, v) -> v :: decode (Many (n - 1, v) :: tail)
+
+let () =
+  let result = decode [Many (4, "a"); One "b"; Many (2, "c"); Many (2, "a"); One "d"; Many (4, "e")] in
+  let expected = ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e"] in
+  if result <> expected then
+    failwith @@ err_msg ^ "`decode` Case 1"
+
+(*
+  Run-Length Encoding of a List (Direct Solution)
+  Intermediate
+
+  Implement the so-called run-length encoding data compression method directly.
+  I.e. don't explicitly create the sublists containing the duplicates, as in
+  problem "Pack consecutive duplicates of list elements into sublists", but only
+  count them. As in problem "Modified run-length encoding", simplify the result
+  list by replacing the singleton lists (1 X) by X.
+
+  # encode ["a";"a";"a";"a";"b";"c";"c";"a";"a";"d";"e";"e";"e";"e"];;
+  - : string rle list =
+  [Many (4, "a"); One "b"; Many (2, "c"); Many (2, "a"); One "d"; Many (4, "e")]
+*)
+
+let direct_encode (xs: 'a list):  'a rle list =
   let incr_acc acc =
     match acc with
     | One value -> Many (2, value)
@@ -475,9 +517,3 @@ let modified_encode (xs: 'a list):  'a rle list =
   match xs with
   | [] -> []
   | x :: rest -> loop (One x) x rest
-
-let () =
-  let result = modified_encode ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e"] in
-  let expected = [Many (4, "a"); One "b"; Many (2, "c"); Many (2, "a"); One "d"; Many (4, "e")] in
-  if result <> expected then
-    failwith @@ err_msg ^ "`modified_encode` Case 1"
