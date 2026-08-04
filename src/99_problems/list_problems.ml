@@ -517,3 +517,53 @@ let direct_encode (xs: 'a list):  'a rle list =
   match xs with
   | [] -> []
   | x :: rest -> loop (One x) x rest
+
+(*
+  Duplicate the Elements of a List
+  Beginner
+
+  Duplicate the elements of a list.
+
+  # duplicate ["a"; "b"; "c"; "c"; "d"];;
+  - : string list = ["a"; "a"; "b"; "b"; "c"; "c"; "c"; "c"; "d"; "d"]
+*)
+
+let rec duplicate ys =
+  match ys with
+  | [] -> []
+  | x :: tail -> x :: x :: duplicate tail
+
+let () =
+  let result = duplicate ["a"; "b"; "c"; "c"; "d"] in
+  let expected = ["a"; "a"; "b"; "b"; "c"; "c"; "c"; "c"; "d"; "d"] in
+  if result <> expected then
+    failwith @@ err_msg ^ "`duplicate` Case 1"
+
+(*
+  Replicate the Elements of a List a Given Number of Times
+  Intermediate
+
+  Replicate the elements of a list a given number of times.
+
+  # replicate ["a"; "b"; "c"] 3;;
+  - : string list = ["a"; "a"; "a"; "b"; "b"; "b"; "c"; "c"; "c"]
+*)
+
+let replicate xs n =
+  let rec loop ys i n =
+    match ys, i with
+    | [], _ -> []
+
+    | y :: tail, 1 ->
+       y :: loop tail n n
+
+    | y :: _, _ ->
+       y :: loop ys (i - 1) n
+  in
+  loop xs n n
+
+let () =
+  let result = replicate ["a"; "b"; "c"] 3 in
+  let expected = ["a"; "a"; "a"; "b"; "b"; "b"; "c"; "c"; "c"] in
+  if result <> expected then
+    failwith @@ err_msg ^ "`replicate` Case 1"
