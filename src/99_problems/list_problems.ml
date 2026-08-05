@@ -819,3 +819,74 @@ let () =
   let expected = [29; 4; 20; 35; 24; 19; 30; 44; 33] in
   if result <> expected then
     failwith @@ err_msg ^ "`lotto_select` Case 2"
+
+(*
+  Generate a Random Permutation of the Elements of a List
+  Beginner
+
+  Generate a random permutation of the elements of a list.
+
+  Random responses: [0; 4; 3; 0; 0; 0]
+  (Random.init 0;; Random.int_in_range ~min:0 ~max:5;; ...)
+
+  Based on the rand nums above, the response should be:
+  # permutation ["a"; "b"; "c"; "d"; "e"; "f"];;
+  - : string list = ["a"; "f"; "e"; "b"; "c"; "d"]
+
+  From the ocaml website below:
+  # permutation ["a"; "b"; "c"; "d"; "e"; "f"];;
+  - : string list = ["c"; "d"; "f"; "e"; "b"; "a"]
+*)
+
+let permutation (xs: 'a list): 'a list =
+  let rec get_loop (i: int) (acc: 'a list) (zs: 'a list): 'a option * 'a list =
+    match i, zs with
+    | _, [] ->
+       None, List.rev acc
+
+    | 0, z :: rest ->
+       let remaining: 'a list = (List.append (List.rev acc) rest) in
+       Some z, remaining
+
+    | _, z :: rest ->
+       get_loop (i - 1) (z :: acc) rest
+  in
+
+  let get_elem_and_rest (pos: int) (ys: 'a list): 'a * 'a list =
+    let result = get_loop pos [] ys in
+    match result with
+    | None, _ -> failwith "Position is out of bounds from the list."
+    | Some v, rest -> v, rest
+  in
+
+  let get_rnd_elem_and_rest (ys: 'a list): 'a * 'a list =
+    match ys with
+    | [] -> failwith "Empty list. Cant get any random element from it."
+
+    (* Optimization for 1 element list. length 1 wont have random position *)
+    | y :: [] -> y, []
+
+    | _ ->
+       let min = 0 in
+       let max = (List.length ys) - 1 in
+       let pos = Random.int_in_range ~min ~max in
+       get_elem_and_rest pos ys
+  in
+
+  let rec main_loop (ys: 'a list): 'a list =
+    match ys with
+    | [] -> []
+    | _ -> let elem, remaining = get_rnd_elem_and_rest ys in
+           elem :: main_loop remaining
+  in
+
+  (* Toggle between 0 seed and true random with self_init *)
+  Random.init 0;
+  (* Random.self_init (); *)
+  main_loop xs
+
+let () =
+  let result = permutation ["a"; "b"; "c"; "d"; "e"; "f"] in
+  let expected = ["a"; "f"; "e"; "b"; "c"; "d"] in
+  if result <> expected then
+    failwith @@ err_msg ^ "`permutation` Case 1"
