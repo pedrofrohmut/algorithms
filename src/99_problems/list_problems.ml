@@ -771,7 +771,7 @@ let rand_select (xs: 'a list) (amount: int): 'a list =
     else
       let min = 0 in
       let max = (List.length ys) - 1 in
-      let pos = Random.int_in_range min max in
+      let pos = Random.int_in_range ~min ~max in
       let elem =
         match get_at pos ys with
         | None -> failwith "Out of bounds"
@@ -782,3 +782,40 @@ let rand_select (xs: 'a list) (amount: int): 'a list =
 
   Random.init 0;
   loop 3 xs
+
+(*
+  Lotto: Draw N Different Random Numbers From the Set 1..M
+  Beginner
+
+  Draw N different random numbers from the set 1..M.
+
+  The selected numbers shall be returned in a list.
+
+  Numbers from random.init 0: min:1 max:49 [29; 4; 20; 35; 24; 19; 30; 44; 33]
+
+  # lotto_select 6 49;;
+  - : int list = [20; 28; 45; 16; 24; 38]
+ *)
+
+let lotto_select (amount: int) (min: int) (max: int): int list =
+  let rec loop n min max =
+    if n = 0 then
+      []
+    else
+      let rnd_num = Random.int_in_range ~min ~max in
+      rnd_num :: loop (n - 1) min max
+  in
+
+  Random.init 0;
+  loop amount min max
+
+let () =
+  let result = lotto_select 6 1 49 in
+  let expected = [29; 4; 20; 35; 24; 19] in
+  if result <> expected then
+    failwith @@ err_msg ^ "`lotto_select` Case 1";
+
+  let result = lotto_select 9 1 49 in
+  let expected = [29; 4; 20; 35; 24; 19; 30; 44; 33] in
+  if result <> expected then
+    failwith @@ err_msg ^ "`lotto_select` Case 2"
