@@ -673,3 +673,112 @@ let () =
   let expected = ["d"; "e"; "f"; "g"; "h"; "a"; "b"; "c"] in
   if result <> expected then
     failwith @@ err_msg ^ "`rotate` Case 1"
+
+(*
+  Remove the K'th Element From a List
+  Beginner
+
+  Remove the K'th element from a list.
+
+  The first element of the list is numbered 0, the second 1,...
+
+  # remove_at 1 ["a"; "b"; "c"; "d"];;
+  - : string list = ["a"; "c"; "d"]
+*)
+
+let rec remove_at (pos: int) (xs: 'a list): 'a list =
+  match xs, pos with
+  | [], _ -> []
+  | _ :: tail, 0 -> tail
+  | x :: tail, _ -> x :: remove_at (pos - 1) tail
+
+let () =
+  let result = remove_at 1 ["a"; "b"; "c"; "d"] in
+  let expected = ["a"; "c"; "d"] in
+  if result <> expected then
+    failwith @@ err_msg ^ "`remove_at` Case 1"
+
+(*
+  Insert an Element at a Given Position Into a List
+  Beginner
+
+  Start counting list elements with 0. If the position is larger or equal to the
+  length of the list, insert the element at the end. (The behavior is unspecified
+  if the position is negative.)
+
+  # insert_at "alfa" 1 ["a"; "b"; "c"; "d"];;
+  - : string list = ["a"; "alfa"; "b"; "c"; "d"]
+*)
+
+let rec insert_at (elem: 'a) (pos: int) (xs: 'a list): 'a list =
+  match xs, pos with
+  | [], _ -> []
+  | x :: tail, 0 -> elem :: x :: tail
+  | x :: tail, _ -> x :: insert_at elem (pos - 1) tail
+
+let () =
+  let result = insert_at "alfa" 1 ["a"; "b"; "c"; "d"] in
+  let expected = ["a"; "alfa"; "b"; "c"; "d"] in
+  if result <> expected then
+    failwith @@ err_msg ^ "`insert_at` Case 1"
+
+(*
+  Create a List Containing All Integers Within a Given Range
+  Beginner
+
+  If first argument is greater than second, produce a list in decreasing order.
+
+  # range 4 9;;
+  - : int list = [4; 5; 6; 7; 8; 9]
+*)
+
+let rec range (low: int) (high: int): int list =
+  match low, high with
+  | l, h when  l = h -> l :: []
+  | l, _ -> l :: range (low + 1) high
+
+
+let () =
+  let result = range 4 9 in
+  let expected = [4; 5; 6; 7; 8; 9] in
+  if result <> expected then
+    failwith @@ err_msg ^ "`range` Case 1"
+
+(*
+  Extract a Given Number of Randomly Selected Elements From a List
+  Intermediate
+
+  The selected items shall be returned in a list. We use the Random module and
+  initialise it with Random.init 0 at the start of the function for
+  reproducibility and validate the solution. To make the function truly random,
+  however, one should remove the call to Random.init 0
+
+  # rand_select ["a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"] 3;;
+  - : string list = ["e"; "c"; "g"]
+*)
+
+let rand_select (xs: 'a list) (amount: int): 'a list =
+  let rec get_at i ys =
+    match ys, i with
+    | [], _ -> None
+    | y :: _, 0 -> Some y
+    | _ :: tail, _ -> get_at (i - 1) tail
+  in
+
+  let rec loop amt ys =
+    if amt = 0 then
+      []
+    else
+      let min = 0 in
+      let max = (List.length ys) - 1 in
+      let pos = Random.int_in_range min max in
+      let elem =
+        match get_at pos ys with
+        | None -> failwith "Out of bounds"
+        | Some e -> e
+      in
+      elem :: loop (amt - 1) ys
+  in
+
+  Random.init 0;
+  loop 3 xs
