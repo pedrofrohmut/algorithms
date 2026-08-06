@@ -808,6 +808,7 @@ let lotto_select (amount: int) (min: int) (max: int): int list =
 
   Random.init 0;
   loop amount min max
+;;
 
 let () =
   let result = lotto_select 6 1 49 in
@@ -819,6 +820,7 @@ let () =
   let expected = [29; 4; 20; 35; 24; 19; 30; 44; 33] in
   if result <> expected then
     failwith @@ err_msg ^ "`lotto_select` Case 2"
+;;
 
 (*
   Generate a Random Permutation of the Elements of a List
@@ -884,9 +886,46 @@ let permutation (xs: 'a list): 'a list =
   Random.init 0;
   (* Random.self_init (); *)
   main_loop xs
+;;
 
 let () =
   let result = permutation ["a"; "b"; "c"; "d"; "e"; "f"] in
   let expected = ["a"; "f"; "e"; "b"; "c"; "d"] in
   if result <> expected then
     failwith @@ err_msg ^ "`permutation` Case 1"
+;;
+
+(*
+  Generate the Combinations of K Distinct Objects Chosen From the N Elements of a List
+  Intermediate
+
+  Generate the combinations of K distinct objects chosen from the N elements of a list.
+
+  In how many ways can a committee of 3 be chosen from a group of 12 people? We
+  all know that there are C(12,3) = 220 possibilities (C(N,K) denotes the
+  well-known binomial coefficients). For pure mathematicians, this result may be
+  great. But we want to really generate all the possibilities in a list.
+
+  # extract 2 ["a"; "b"; "c"; "d"];;
+  - : string list list =
+  [["a"; "b"]; ["a"; "c"]; ["a"; "d"]; ["b"; "c"]; ["b"; "d"]; ["c"; "d"]]
+*)
+
+(* Extract with a fixed length of 2 *)
+let extract2 (xs: 'a list): 'a list list =
+
+  let rec loop (curr: 'a) (ys: 'a list) (zs: 'a list): 'a list list =
+    match ys, zs with
+    | [], [] -> []
+
+    | [], z :: tail ->
+        loop z tail tail
+
+    | y :: tail, _ ->
+        [curr; y] :: loop curr tail zs
+  in
+
+  let curr = List.hd xs in
+  let tail = List.tl xs in
+  loop curr tail tail
+;;
