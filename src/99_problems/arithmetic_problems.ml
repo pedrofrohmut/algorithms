@@ -129,3 +129,91 @@ let gcd: int -> int -> int = fun a b ->
   let shared = shared_factors a_factors b_factors in
   List.fold_left ( * ) 1 shared
 ;;
+
+(*
+  Determine Whether Two Positive Integer Numbers Are Coprime
+  Beginner
+
+  Determine whether two positive integer numbers are coprime.
+
+  Two numbers are coprime if their greatest common divisor equals 1.
+
+  # coprime 13 27;;
+  - : bool = true
+  # not (coprime 20536 7826);;
+  - : bool = true
+*)
+
+let is_coprime: int -> int -> bool =
+  fun a b -> gcd a b = 1
+;;
+
+let () =
+  let res = is_coprime 13 27 in
+  let exp = true in
+  if res <> exp then
+    failwith @@ err_msg ^ "`is_coprime` Case 1";
+
+  let res = is_coprime 20536 7826 in
+  let exp = false in
+  if res <> exp then
+    failwith @@ err_msg ^ "`is_coprime` Case 2"
+;;
+
+(*
+  Calculate Euler's Totient Function Φ(m)
+  Intermediate
+
+  Euler's so-called totient function φ(m) is defined as the number of positive
+  integers r (1 ≤ r < m) that are coprime to m. We let φ(1) = 1.
+
+  Find out what the value of φ(m) is if m is a prime number. Euler's totient
+  function plays an important role in one of the most widely used public key
+  cryptography methods (RSA). In this exercise you should use the most primitive
+  method to calculate this function (there are smarter ways that we shall discuss
+  later).
+
+  # phi 10;;
+  - : int = 4
+*)
+
+let phi: int -> int = fun n ->
+
+  let rec loop: int -> int -> int list = fun i n ->
+    if i = n then
+      []
+    else if is_coprime i n then
+      i :: loop (i + 1) n
+    else
+      loop (i + 1) n
+  in
+
+  let coprimes = loop 1 n in
+  List.length coprimes
+;;
+
+let () =
+  let res = phi 10 in
+  let exp = 4 in
+  if res <> exp then
+    failwith @@ err_msg ^ "`phi` Case 1"
+;;
+
+  (*
+  Determine the Prime Factors of a Given Positive Integer
+  Intermediate
+
+  Construct a flat list containing the prime factors in ascending order.
+
+  # factors 315;;
+  - : int list = [3; 3; 5; 7]
+*)
+
+let factors: int -> int list = fun n -> prime_factors n;;
+
+let () =
+  let res = factors 315 in
+  let exp = [3; 3; 5; 7] in
+  if res <> exp then
+    failwith @@ err_msg ^ "`factors` Case 1"
+;;
