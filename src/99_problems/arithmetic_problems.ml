@@ -217,3 +217,40 @@ let () =
   if res <> exp then
     failwith @@ err_msg ^ "`factors` Case 1"
 ;;
+
+(*
+  Determine the Prime Factors of a Given Positive Integer (2)
+  Intermediate
+
+  Construct a list containing the prime factors and their multiplicity.
+
+  Hint: The problem is similar to problem Run-length encoding of a list
+  (direct solution).
+
+  # factors 315;;
+  - : (int * int) list = [(3, 2); (5, 1); (7, 1)]
+*)
+
+let factors2: int -> (int * int) list = fun n ->
+
+  let rec loop: int -> int * int -> int list -> (int * int) list = fun curr elem xs ->
+    match xs, elem with
+    | [], _ -> elem :: []
+
+    | x :: xt, (v, n) ->
+       if x = v then
+         loop curr (v, n + 1) xt
+       else
+         elem :: loop x (x, 1) xt
+  in
+
+  match factors n with
+  | [] -> []
+  | x :: xt -> loop x (x, 1) xt
+;;
+
+let () =
+  let res = factors2 315 in
+  let exp = [(3, 2); (5, 1); (7, 1)] in
+  if res <> exp then
+    failwith @@ err_msg ^ "`factors2` Case 1"
