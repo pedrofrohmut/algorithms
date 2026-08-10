@@ -254,3 +254,52 @@ let () =
   let exp = [(3, 2); (5, 1); (7, 1)] in
   if res <> exp then
     failwith @@ err_msg ^ "`factors2` Case 1"
+
+(*
+  Calculate Euler's Totient Function Φ(m) (Improved)
+  Intermediate
+
+  See problem "Calculate Euler's totient function φ(m)" for the definition of
+  Euler's totient function. If the list of the prime factors of a number m is
+  known in the form of the previous problem then the function phi(m) can be
+  efficiently calculated as follows: Let [(p1, m1); (p2, m2); (p3, m3); ...] be
+  the list of prime factors (and their multiplicities) of a given number m.
+  Then φ(m) can be calculated with the following formula:
+
+  phi(m) = (p1 - 1) * p1 ** (m1 - 1) * (p2 - 1) * p2 ** (m2 - 1) * (p3 - 1) * p3 ** (m3 - 1) * ...
+
+  # phi_improved 10;;
+  - : int = 4
+  # phi_improved 13;;
+  - : int = 12
+*)
+
+let phi_improved = fun n ->
+
+  let rec loop = fun xs ->
+    match xs with
+    | [] -> 1.0
+    | (p, m) :: xt ->
+       let p = float_of_int p in
+       let m = float_of_int m in
+       let elem = (p -. 1.0) *. (p ** (m -. 1.0)) in
+       elem *. loop xt
+  in
+
+  let prime_factors = factors2 n in
+
+  match prime_factors with
+  | [] -> failwith "TODO: unreacheable?"
+  | _ -> int_of_float @@ loop prime_factors
+;;
+
+let () =
+  let res = phi_improved 10 in
+  let exp = 4 in
+  if res <> exp then
+    failwith @@ err_msg ^ "`phi_improved` Case 1";
+
+  let res = phi_improved 13 in
+  let exp = 12 in
+  if res <> exp then
+    failwith @@ err_msg ^ "`phi_improved` Case 2"
