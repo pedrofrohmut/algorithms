@@ -377,18 +377,18 @@ let () =
 *)
 
 let goldbach = fun n ->
-  let rec loop = fun i n ->
-    let low = i and high = n - i in
-
-    if i = n then
+  let rec loop = fun low n ->
+    if low = n then
       failwith "Unreacheable"
-    else if is_prime low && is_prime high then
-      (low, high)
     else
-      loop (i + 1) n
+      let high = n - low in
+      if is_prime low && is_prime high then
+        (low, high)
+      else
+        loop (low + 1) n
   in
 
-  if n < 2 or n mod 2 <> 0 then
+  if n < 2 || n mod 2 <> 0 then
     failwith "Goldbach only works for positive even numbers greater than 2."
   else
     loop 2 n
