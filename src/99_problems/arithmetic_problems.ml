@@ -361,3 +361,42 @@ let () =
   if res <> exp then
     failwith @@ err_msg ^ "`all_primes` Case 1"
 ;;
+
+(*
+  Goldbach's Conjecture
+  Intermediate
+
+  Goldbach's conjecture says that every positive even number greater than 2 is the
+  sum of two prime numbers. Example: 28 = 5 + 23. It is one of the most famous facts
+  in number theory that has not been proved to be correct in the general case. It
+  has been numerically confirmed up to very large numbers. Write a function to find
+  the two prime numbers that sum up to a given even integer.
+
+  # goldbach 28;;
+  - : int * int = (5, 23)
+*)
+
+let goldbach = fun n ->
+  let rec loop = fun i n ->
+    let low = i and high = n - i in
+
+    if i = n then
+      failwith "Unreacheable"
+    else if is_prime low && is_prime high then
+      (low, high)
+    else
+      loop (i + 1) n
+  in
+
+  if n < 2 or n mod 2 <> 0 then
+    failwith "Goldbach only works for positive even numbers greater than 2."
+  else
+    loop 2 n
+;;
+
+let () =
+  let res = goldbach 28 in
+  let exp = (5, 23) in
+  if res <> exp then
+    failwith @@ err_msg ^ "`goldbach` Case 1"
+;;
