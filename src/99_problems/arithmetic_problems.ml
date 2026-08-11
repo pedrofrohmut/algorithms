@@ -303,3 +303,61 @@ let () =
   let exp = 12 in
   if res <> exp then
     failwith @@ err_msg ^ "`phi_improved` Case 2"
+
+(*
+  Compare the Two Methods of Calculating Euler's Totient Function
+  Beginner
+
+  Use the solutions of problems "Calculate Euler's totient function φ(m)" and
+  "Calculate Euler's totient function φ(m) (improved)" to compare the algorithms.
+  Take the number of logical inferences as a measure for efficiency. Try to
+  calculate φ(10090) as an example.
+
+  timeit phi 10090
+*)
+
+open Unix;;
+
+#load "unix.cma";;
+
+let timeit: (int -> int) -> int -> unit = fun f a ->
+  let start_t = Unix.gettimeofday () in
+  let _ = f a in
+  let end_t = Unix.gettimeofday () in
+  let elapsed = end_t -. start_t in
+  Printf.printf "It took %f\n" elapsed
+;;
+
+(*
+  A List of Prime Numbers
+  Beginner
+
+  Given a range of integers by its lower and upper limit, construct a list of all
+  prime numbers in that range.
+
+  # List.length (all_primes 2 7920);;
+  - : int = 1000
+*)
+
+let make_range_list = fun low high ->
+  let len = high - low + 1 in
+  List.init len (fun x -> x + low)
+;;
+
+let rec all_primes: int -> int -> int list = fun low high ->
+  if low > high then
+    []
+  else if is_prime low then
+    low :: all_primes (low + 1) high
+  else
+    all_primes (low + 1) high
+;;
+
+let all_primes_limit: int -> int list = fun n -> all_primes 2 n;;
+
+let () =
+  let res = List.length (all_primes 2 7920) in
+  let exp = 1000 in
+  if res <> exp then
+    failwith @@ err_msg ^ "`all_primes` Case 1"
+;;
