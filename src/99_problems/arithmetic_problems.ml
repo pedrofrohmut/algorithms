@@ -400,3 +400,35 @@ let () =
   if res <> exp then
     failwith @@ err_msg ^ "`goldbach` Case 1"
 ;;
+
+(*
+  A List of Goldbach Compositions
+  Intermediate
+
+  Given a range of integers by its lower and upper limit, print a list of all even
+  numbers and their Goldbach composition.
+
+  In most cases, if an even number is written as the sum of two prime numbers, one
+  of them is very small. Very rarely, the primes are both bigger than say 50. Try
+  to find out how many such cases there are in the range 2..3000.
+
+  # goldbach_list 9 20;;
+  - : (int * (int * int)) list =
+  [(10, (3, 7)); (12, (5, 7)); (14, (3, 11)); (16, (3, 13)); (18, (5, 13)); (20, (3, 17))]
+*)
+
+let rec goldbach_list = fun low high ->
+  if low > high then
+    []
+  else if low mod 2 <> 0 then
+    goldbach_list (low + 1) high
+  else
+    (low, goldbach low) :: goldbach_list (low + 1) high
+;;
+
+let () =
+  let res = goldbach_list 9 20 in
+  let exp = [(10, (3, 7)); (12, (5, 7)); (14, (3, 11)); (16, (3, 13)); (18, (5, 13)); (20, (3, 17))] in
+  if res <> exp then
+    failwith @@ err_msg ^ "`goldbach_list` Case 1"
+;;
