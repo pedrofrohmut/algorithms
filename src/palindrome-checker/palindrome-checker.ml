@@ -53,6 +53,24 @@ let is_palindrome (src: string): bool =
   | 1 -> true
   | _ -> loop src 0 (len - 1)
 
+let is_palindrome2: string -> bool = fun src ->
+
+  let rec loop = fun src low high ->
+    if low > high then
+      true
+    else if src.[low] <> src.[high] then
+      false
+    else
+      loop src (low + 1) (high - 1)
+  in
+
+  let len = String.length src in
+  if len < 2 then
+    true
+  else
+    loop src 0 (len - 1)
+;;
+
 let test (label: string) (is_palindrome_fun: string -> bool) (src: string) (expected: bool): unit =
   let result = is_palindrome_fun src in
   if result <> expected then
