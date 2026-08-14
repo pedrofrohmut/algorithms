@@ -74,6 +74,8 @@ let () =
 ;;
 
 (*
+  TODO:
+
   Truth Tables for Logical Expressions
   Intermediate
 
@@ -88,4 +90,53 @@ let () =
    ([("a", true); ("b", false)], true);
    ([("a", false); ("b", true)], false);
    ([("a", false); ("b", false)], false)]
+*)
+
+(*
+  Gray Code
+  Intermediate
+
+  An n-bit Gray code is a sequence of n-bit strings constructed according to
+  certain rules. For example,
+
+  n = 1: C(1) = ['0', '1'].
+  n = 2: C(2) = ['00', '01', '11', '10'].
+  n = 3: C(3) = ['000', '001', '011', '010', '110', '111', '101', '100'].
+
+  Find out the construction rules and write a function with the following
+  specification: gray n returns the n-bit Gray code.
+
+  # gray 1;;
+  - : string list = ["0"; "1"]
+  # gray 2;;
+  - : string list = ["00"; "01"; "11"; "10"]
+  # gray 3;;
+  - : string list = ["000"; "001"; "011"; "010"; "110"; "111"; "101"; "100"]
+ *)
+
+(*
+  Huffman Code
+  Advanced
+
+  First of all, consult a good book on discrete mathematics or algorithms for a
+  detailed description of Huffman codes (you can start with the Wikipedia page)!
+
+  We consider a set of symbols with their frequencies. For example, if the
+  alphabet is "a",..., "f" (represented as the positions 0,...5) and respective
+  frequencies are 45, 13, 12, 16, 9, 5:
+
+  # let fs = [("a", 45); ("b", 13); ("c", 12); ("d", 16);
+              ("e", 9); ("f", 5)];;
+  val fs : (string * int) list =
+  [("a", 45); ("b", 13); ("c", 12); ("d", 16); ("e", 9); ("f", 5)]
+
+  Our objective is to construct the Huffman code word for all symbols s. In our
+  example, the result could be hs = [("a", "0"); ("b", "101"); ("c", "100");
+  ("d", "111"); ("e", "1101"); ("f", "1100")] (or hs = [("a", "1");...]). The
+  task shall be performed by the function huffman defined as follows: huffman(fs)
+  returns the Huffman code table for the frequency table fs
+
+  # huffman fs;;
+  - : (string * string) list =
+  [("a", "0"); ("c", "100"); ("b", "101"); ("f", "1100"); ("e", "1101"); ("d", "111")]
 *)

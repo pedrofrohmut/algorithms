@@ -896,6 +896,8 @@ let () =
 ;;
 
 (*
+  TODO:
+
   Generate the Combinations of K Distinct Objects Chosen From the N Elements of a List
   Intermediate
 
@@ -929,3 +931,55 @@ let extract2 (xs: 'a list): 'a list list =
   let tail = List.tl xs in
   loop curr tail tail
 ;;
+
+(*
+  TODO:
+  Group the Elements of a Set Into Disjoint Subsets
+  Intermediate
+
+  Group the elements of a set into disjoint subsets
+
+  In how many ways can a group of 9 people work in 3 disjoint subgroups of 2, 3
+  and 4 persons? Write a function that generates all the possibilities and returns
+  them in a list.
+
+  Generalize the above function in a way that we can specify a list of group sizes
+  and the function will return a list of groups.
+
+  # group ["a"; "b"; "c"; "d"] [2; 1];;
+  - : string list list list =
+  [[["a"; "b"]; ["c"]]; [["a"; "c"]; ["b"]]; [["b"; "c"]; ["a"]];
+   [["a"; "b"]; ["d"]]; [["a"; "c"]; ["d"]]; [["b"; "c"]; ["d"]];
+   [["a"; "d"]; ["b"]]; [["b"; "d"]; ["a"]]; [["a"; "d"]; ["c"]];
+   [["b"; "d"]; ["c"]]; [["c"; "d"]; ["a"]]; [["c"; "d"]; ["b"]]]
+*)
+
+(*
+  TODO:
+
+  Sorting a List of Lists According to Length of Sublists
+  Intermediate
+
+  Sorting a list of lists according to length of sublists.
+
+  We suppose that a list contains elements that are lists themselves. The objective
+  is to sort the elements of this list according to their length. E.g. short lists
+  first, longer lists later, or vice versa.
+
+  Again, we suppose that a list contains elements that are lists themselves. But
+  this time the objective is to sort the elements of this list according to their
+  length frequency; i.e., in the default, where sorting is done ascendingly, lists
+  with rare lengths are placed first, others with a more frequent length come later.
+
+  # length_sort [["a"; "b"; "c"]; ["d"; "e"]; ["f"; "g"; "h"]; ["d"; "e"];
+                 ["i"; "j"; "k"; "l"]; ["m"; "n"]; ["o"]];;
+  - : string list list =
+  [["o"]; ["d"; "e"]; ["d"; "e"]; ["m"; "n"]; ["a"; "b"; "c"]; ["f"; "g"; "h"];
+   ["i"; "j"; "k"; "l"]]
+
+  # frequency_sort [["a"; "b"; "c"]; ["d"; "e"]; ["f"; "g"; "h"]; ["d"; "e"];
+                    ["i"; "j"; "k"; "l"]; ["m"; "n"]; ["o"]];;
+  - : string list list =
+  [["i"; "j"; "k"; "l"]; ["o"]; ["a"; "b"; "c"]; ["f"; "g"; "h"]; ["d"; "e"];
+   ["d"; "e"]; ["m"; "n"]]
+*)
