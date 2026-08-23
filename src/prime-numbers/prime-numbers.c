@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct {
     int* arr;
@@ -11,6 +12,10 @@ typedef struct {
 
 bool is_prime(const int n)
 {
+    if (n < 2) {
+        return false;
+    }
+
     for (int i = 2; i < n; i++) {
         if (n % i == 0) {
             return false;
@@ -23,7 +28,7 @@ bool is_prime(const int n)
 Primes* get_primes(const int limit)
 {
     if (limit < 2) {
-        printf("Limit can only be an integer bigger than 2");
+        printf("Limit can only be an integer bigger than 2\n");
         exit(1);
     }
 
@@ -62,5 +67,6 @@ int main(void)
     const int limit = 100;
     Primes* primes = get_primes(limit);
     print_primes(primes, limit);
+
     return 0;
 }

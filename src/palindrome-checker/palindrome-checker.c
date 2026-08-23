@@ -1,9 +1,12 @@
 #include <string.h>
 #include <assert.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 bool is_palindrome(const char* src)
 {
+    assert(src != NULL);
+
     int len = strlen(src);
 
     if (len <= 1) return true;
@@ -11,7 +14,7 @@ bool is_palindrome(const char* src)
     int low = 0;
     int high = len - 1;
 
-    while (low <= high) {
+    while (low < high) {
         if (src[low] != src[high]) {
             return false;
         }
@@ -22,11 +25,17 @@ bool is_palindrome(const char* src)
     return true;
 }
 
+const char* bool_to_str(const bool b)
+{
+    return b ? "true" : "false";
+}
+
 void test_palindrome(const char* src, bool expected)
 {
     bool result = is_palindrome(src);
     if (expected != result) {
-        printf("Error: Testing palindrome for `%s`. Expected result to be %b but got %b instead.\n", src, expected, result);
+        printf("Error: Testing palindrome for `%s`. Expected result to be %s but got %s instead.\n",
+               src, bool_to_str(expected), bool_to_str(result));
     }
 }
 
